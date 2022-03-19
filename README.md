@@ -1,11 +1,13 @@
 # MovieZen
 ## Description:
-A movie tracker program that allows users to search for popular movies and add them to 3 categories: Watched, Liked, Watchlist. Users should be able to rate the film using the five-star rating system.
+A movie tracker program that allows users to search for popular movies and add them to 3 categories: Watched, Liked, Watchlist.
 
 ## Motivation behind it:
 
 ## Design:
- [Mockup Design](https://www.figma.com/file/2lnIlxcJ8n1b8Z0Nd17ai2/MovieZen-application-(Android-course)?node-id=2%3A289)
+ [Live prototype Design](https://www.figma.com/proto/2lnIlxcJ8n1b8Z0Nd17ai2/MovieZen-application-(Android-course)?page-id=0%3A1&node-id=2%3A289&viewport=241%2C48%2C1&scaling=min-zoom&starting-point-node-id=2%3A850)
+ 
+ [Initial Design System](https://www.figma.com/file/2lnIlxcJ8n1b8Z0Nd17ai2/MovieZen-application-(Android-course)?node-id=2%3A289)
 
 ## Requirements:
 ### Must have:
