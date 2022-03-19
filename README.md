@@ -26,8 +26,9 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 - [ ] As a registered user, I want to remove movies from any list I added them, so that in case of a mistake or if a change occurs it can be handled properly in the system.
 
 ### Could have:
+- [ ] As a registered user, I want to add movies to personalized lists, so that I can group movies by any preferences.
 - [ ] As a registered user, I want to rate movies based on the five-star rating system, so that I can keep track of my preferences.
-- [ ] As a registered user, I want to add movies to personalized lists, so that I can group movies by my own preferences.
+
 
 ### Would not have:
 - [ ] As a registered user, I want to make my personalized lists public so that other people can have access to them and get inspired to watch a particular movie.
