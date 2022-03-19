@@ -3,6 +3,12 @@
 A movie tracker program that allows users to search for popular movies and add them to 3 categories: Watched, Liked, Watchlist.
 
 ## Motivation behind it:
+We wanted to develop an app that is directly related to one of our interests, cinematography. As we love watching movies, sometimes it's getting hard to track our preferences over time. 
+Let's imagine that you're enjoying a great chat and the person asks you randomly:
+"What are your top ten movies of all time?" or "Could you provide me a list of movies that you really liked?"
+That could be the perfect moment for a movie lover to shine, share your thoughts and impressions but we all get that moment when our mind goes blank and we can recall only few of what we actually know and truly enjoyed. You end up saying whatever comes to mind first, and as soon as the conversation is over, all of the fantastic suggestions you could have made flood your thoughts. Frustrating, right?
+That's why we've chosen this idea to help us stay organized and keep track of what we're watching.
+
 
 ## Design:
  [Live prototype Design](https://www.figma.com/proto/2lnIlxcJ8n1b8Z0Nd17ai2/MovieZen-application-(Android-course)?page-id=0%3A1&node-id=2%3A289&viewport=241%2C48%2C1&scaling=min-zoom&starting-point-node-id=2%3A850)
