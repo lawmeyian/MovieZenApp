@@ -1,7 +1,6 @@
 # MovieZen
 ## Description:
-A movie tracker program that allows users to search for popular movies and add them to 3 categories: Watched, Liked, Watchlist.
-
+MovieZen is a movie tracker app that allows users to view, search for popular movies and add them to lists such as: Watched, Liked, Watchlist. This type of movie collecting app will help users in remembering their favorite films and recommending them to others.
 ## Motivation behind it:
 We wanted to develop an app that is directly related to one of our interests, cinematography. As we love watching movies, sometimes it's getting hard to track our preferences over time. 
 Let's imagine that you're enjoying a great chat and the person asks you randomly:
