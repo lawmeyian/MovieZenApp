@@ -32,3 +32,10 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 
 ### Would not have:
 - [ ] As a registered user, I want to make my personalized lists public so that other people can have access to them and get inspired to watch a particular movie.
+
+---
+**NOTE**
+
+The UI/UX was inspired by Letterboxd app.
+
+---
