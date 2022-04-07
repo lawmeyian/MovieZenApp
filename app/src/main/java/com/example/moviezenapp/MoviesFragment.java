@@ -1,5 +1,6 @@
 package com.example.moviezenapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,14 +42,12 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
         movieRecyclerAdapter = new MovieRecyclerView(this);
-        movieList.setAdapter(movieRecyclerAdapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
 
-        movieList.setLayoutManager(gridLayoutManager);
-        movieList.setHasFixedSize(true);
+
         ConfigureRecyclerView();
         ObserveAnyChange();
         searchMovieApi("Spider",1);
+
 //        ArrayList<Movie> movies = new ArrayList<>();
 //        movieAdapter = new MovieAdapter(movies);
 //        movies.add(new Movie("A Single Man", R.drawable.a_single_man));
@@ -60,6 +59,7 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
 //
 //
 //        movieList.setAdapter(movieAdapter);
+
         return view;
     }
     private void ObserveAnyChange() {
@@ -86,7 +86,11 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
     {
         movieRecyclerAdapter = new MovieRecyclerView(this);
         movieList.setAdapter(movieRecyclerAdapter);
-//        movieList.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
+
+        movieList.setLayoutManager(gridLayoutManager);
+        movieList.setHasFixedSize(true);
+//        movieList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         //RecyclerView Pagination
         // Loading next page of api response
@@ -108,6 +112,10 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
 
     @Override
     public void onMovieClick(int position) {
-        Toast.makeText(this.getContext(), "The Position" + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getContext(), "The Position" + position, Toast.LENGTH_SHORT).show();
+        // We need id of movie in order to get all it's details
+        Intent intent = new Intent(this.getContext(),MovieDetails.class);
+        intent.putExtra("movie",movieRecyclerAdapter.getSelectedMovie(position));
+        startActivity(intent);
     }
 }

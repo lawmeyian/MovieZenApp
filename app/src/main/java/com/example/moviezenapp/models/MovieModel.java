@@ -3,11 +3,14 @@ package com.example.moviezenapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MovieModel implements Parcelable {
 
     private String title;
     private String poster_path;
     private String release_date;
+    @SerializedName("id")
     private int movie_id;
     private float vote_average;
     private float vote_count;

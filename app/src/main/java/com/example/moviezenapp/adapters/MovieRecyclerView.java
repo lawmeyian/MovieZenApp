@@ -17,8 +17,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<MovieModel> movies;
     private OnMovieListener onMovieListener;
 
-    public MovieRecyclerView(OnMovieListener onMovieListener)
-    {
+    public MovieRecyclerView(OnMovieListener onMovieListener) {
         this.onMovieListener = onMovieListener;
     }
 
@@ -32,25 +31,34 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((MovieViewHolder)holder).movie_title.setText(movies.get(position).getTitle());
+        ((MovieViewHolder) holder).movie_title.setText(movies.get(position).getTitle());
         // Image view: Using Glide Library
-        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" +movies.get(position).getPoster_path())
-                .into((((MovieViewHolder)holder).imageView));
+        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
+                .into((((MovieViewHolder) holder).imageView));
     }
 
     @Override
     public int getItemCount() {
 
-        if(movies != null)
-        {
+        if (movies != null) {
             return movies.size();
         }
         return 0;
     }
 
-    public void setMovies(List<MovieModel> movies)
-    {
+    public void setMovies(List<MovieModel> movies) {
         this.movies = movies;
         notifyDataSetChanged();
+    }
+
+    // Getting the id of the movie click
+
+    public MovieModel getSelectedMovie(int position) {
+        if (movies != null) {
+            if (movies.size() > 0){
+                return movies.get(position);
+            }
+        }
+        return null;
     }
 }
