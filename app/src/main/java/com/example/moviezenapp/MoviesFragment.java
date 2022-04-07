@@ -2,6 +2,7 @@ package com.example.moviezenapp;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,7 +48,7 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieList.setHasFixedSize(true);
         ConfigureRecyclerView();
         ObserveAnyChange();
-        searchMovieApi("the",1);
+        searchMovieApi("Spider",1);
 //        ArrayList<Movie> movies = new ArrayList<>();
 //        movieAdapter = new MovieAdapter(movies);
 //        movies.add(new Movie("A Single Man", R.drawable.a_single_man));
@@ -86,9 +87,24 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieRecyclerAdapter = new MovieRecyclerView(this);
         movieList.setAdapter(movieRecyclerAdapter);
 //        movieList.setLayoutManager(new LinearLayoutManager(this));
+
+        //RecyclerView Pagination
+        // Loading next page of api response
+
+        movieList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if(!movieList.canScrollVertically(1)){
+                    // Here we display the next search results
+                    movieViewModel.searchNextPage();
+                }
+            }
+        });
     }
 
-    //RecyclerView Pagination
+
+
+
 
     @Override
     public void onMovieClick(int position) {
