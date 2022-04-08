@@ -20,4 +20,5 @@
         android:name="com.example.moviezenapp.ListsFragment"
         android:label="Lists"
         tools:layout="@layout/fragment_lists" />
+
 </navigation>

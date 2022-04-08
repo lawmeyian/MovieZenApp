@@ -1,9 +1,9 @@
 package com.example.moviezenapp.adapters;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -23,16 +23,20 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public MovieViewHolder(@NonNull View itemView, OnMovieListener onMovieListener) {
         super(itemView);
+        this.onMovieListener = onMovieListener;
         imageView = itemView.findViewById(R.id.movie_image);
         movie_title = itemView.findViewById(R.id.movie_title);
+
 
         itemView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-//        onMovieListener.onMovieClick(getBindingAdapterPosition());
-        Toast.makeText(view.getContext(), movie_title.getText(), Toast.LENGTH_SHORT).show();
+//        onMovieListener.onMovieClick(getAbsoluteAdapterPosition());
+        if (onMovieListener != null) {
+            onMovieListener.onMovieClick(getBindingAdapterPosition());
+        }
 
     }
 }

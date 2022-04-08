@@ -1,5 +1,6 @@
 package com.example.moviezenapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,12 @@ import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.MovieModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MovieModel> movies;
-    private OnMovieListener onMovieListener;
+    private final OnMovieListener onMovieListener;
 
     public MovieRecyclerView(OnMovieListener onMovieListener) {
         this.onMovieListener = onMovieListener;
@@ -35,6 +37,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
                 .into((((MovieViewHolder) holder).imageView));
+
     }
 
     @Override
@@ -46,6 +49,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         return 0;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setMovies(List<MovieModel> movies) {
         this.movies = movies;
         notifyDataSetChanged();
@@ -55,7 +59,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public MovieModel getSelectedMovie(int position) {
         if (movies != null) {
-            if (movies.size() > 0){
+            if (movies.size() > 0) {
                 return movies.get(position);
             }
         }

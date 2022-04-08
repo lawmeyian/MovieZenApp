@@ -1,5 +1,6 @@
 package com.example.moviezenapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,9 +45,8 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieRecyclerAdapter = new MovieRecyclerView(this);
 
 
-        ConfigureRecyclerView();
         ObserveAnyChange();
-        searchMovieApi("Spider",1);
+        searchMovieApi("Spider", 1);
 
 //        ArrayList<Movie> movies = new ArrayList<>();
 //        movieAdapter = new MovieAdapter(movies);
@@ -59,16 +59,17 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
 //
 //
 //        movieList.setAdapter(movieAdapter);
-
+        ConfigureRecyclerView();
         return view;
     }
+
     private void ObserveAnyChange() {
         movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
                 // observing for any data change
-                if(movieModels != null){
-                    for(MovieModel movieModel: movieModels){
+                if (movieModels != null) {
+                    for (MovieModel movieModel : movieModels) {
                         // Get the data in log
                         Log.v("Tag", "onChanged " + movieModel.getTitle());
                         movieRecyclerAdapter.setMovies(movieModels);
@@ -78,14 +79,15 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         });
     }
 
-    private void searchMovieApi(String query, int pageNumber)
-    {
-        movieViewModel.searchMovieApi(query,pageNumber);
+    private void searchMovieApi(String query, int pageNumber) {
+        movieViewModel.searchMovieApi(query, pageNumber);
     }
-    private void ConfigureRecyclerView()
-    {
+
+    private void ConfigureRecyclerView() {
+
         movieRecyclerAdapter = new MovieRecyclerView(this);
         movieList.setAdapter(movieRecyclerAdapter);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
 
         movieList.setLayoutManager(gridLayoutManager);
@@ -98,7 +100,7 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if(!movieList.canScrollVertically(1)){
+                if (!movieList.canScrollVertically(1)) {
                     // Here we display the next search results
                     movieViewModel.searchNextPage();
                 }
@@ -107,15 +109,16 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
     }
 
 
-
-
-
     @Override
     public void onMovieClick(int position) {
 //        Toast.makeText(this.getContext(), "The Position" + position, Toast.LENGTH_SHORT).show();
         // We need id of movie in order to get all it's details
-        Intent intent = new Intent(this.getContext(),MovieDetails.class);
-        intent.putExtra("movie",movieRecyclerAdapter.getSelectedMovie(position));
+        Context context = getContext();
+        Class destination = MovieDetails.class;
+
+
+        Intent intent = new Intent(context, destination);
+        intent.putExtra("movie", movieRecyclerAdapter.getSelectedMovie(position));
         startActivity(intent);
     }
 }
