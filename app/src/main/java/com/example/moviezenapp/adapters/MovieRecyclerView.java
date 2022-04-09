@@ -37,6 +37,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
         // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
                 .into((((MovieViewHolder) holder).imageView));
+//        ((MovieViewHolder)holder).ratingBar.setRating((movies.get(position).getVote_average())/2);
 
     }
 
