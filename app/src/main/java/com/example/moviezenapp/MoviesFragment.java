@@ -9,26 +9,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.moviezenapp.adapters.MovieRecyclerView;
-import com.example.moviezenapp.adapters.OnMovieListener;
-import com.example.moviezenapp.models.MovieModel;
+import com.example.moviezenapp.adapters.MovieAdapter;
+import com.example.moviezenapp.adapters.OnMovieClickListener;
+import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesFragment extends Fragment implements OnMovieListener {
+public class MoviesFragment extends Fragment implements OnMovieClickListener {
     RecyclerView movieList;
-    private MovieRecyclerView movieRecyclerAdapter;
+    private MovieAdapter movieRecyclerAdapter;
 
     // View model
     private MovieViewModel movieViewModel;
@@ -43,7 +40,7 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
         movieList = view.findViewById(R.id.recyclerView);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
-        movieRecyclerAdapter = new MovieRecyclerView(this);
+        movieRecyclerAdapter = new MovieAdapter(this);
 
         ConfigureRecyclerView();
         ObserveAnyChange();
@@ -53,12 +50,12 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
     }
 
     private void ObservePopularMovies() {
-        movieViewModel.getMoviesPopular().observe(getViewLifecycleOwner(), new Observer<List<MovieModel>>() {
+        movieViewModel.getMoviesPopular().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
-            public void onChanged(List<MovieModel> movieModels) {
+            public void onChanged(List<Movie> movieModels) {
                 // observing for any data change
                 if (movieModels != null) {
-                    for (MovieModel movieModel : movieModels) {
+                    for (Movie movieModel : movieModels) {
                         // Get the data in log
                         Log.v("Tag", "onChanged " + movieModel.getTitle());
                         movieRecyclerAdapter.setMovies(movieModels);
@@ -69,12 +66,12 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
     }
 
     private void ObserveAnyChange() {
-        movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieModel>>() {
+        movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
-            public void onChanged(List<MovieModel> movieModels) {
+            public void onChanged(List<Movie> movieModels) {
                 // observing for any data change
                 if (movieModels != null) {
-                    for (MovieModel movieModel : movieModels) {
+                    for (Movie movieModel : movieModels) {
                         // Get the data in log
                         Log.v("Tag", "onChanged " + movieModel.getTitle());
                         movieRecyclerAdapter.setMovies(movieModels);
@@ -86,7 +83,7 @@ public class MoviesFragment extends Fragment implements OnMovieListener {
 
     private void ConfigureRecyclerView() {
 
-        movieRecyclerAdapter = new MovieRecyclerView(this);
+        movieRecyclerAdapter = new MovieAdapter(this);
         movieList.setAdapter(movieRecyclerAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);

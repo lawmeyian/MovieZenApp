@@ -1,6 +1,6 @@
 package com.example.moviezenapp.adapters;
 
-public interface OnMovieListener {
+public interface OnMovieClickListener {
     void onMovieClick(int position);
 
 }

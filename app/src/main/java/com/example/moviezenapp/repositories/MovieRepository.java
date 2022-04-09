@@ -1,9 +1,8 @@
 package com.example.moviezenapp.repositories;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.moviezenapp.models.MovieModel;
+import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.request.MovieApiClient;
 
 import java.util.List;
@@ -13,8 +12,8 @@ public class MovieRepository {
 
     private MovieApiClient movieApiClient;
 
-    private String mQuery;
-    private int mPageNumber;
+    private String query;
+    private int pageNumber;
 
     public static MovieRepository getInstance() {
         if (instance == null) {
@@ -27,29 +26,29 @@ public class MovieRepository {
         movieApiClient = MovieApiClient.getInstance();
     }
 
-    public LiveData<List<MovieModel>> getMovies() {
+    public LiveData<List<Movie>> getMovies() {
         return movieApiClient.getMovies();
     }
 
-    public LiveData<List<MovieModel>> getMoviesPopular() {
-        return movieApiClient.getMoviesPopular();
+    public LiveData<List<Movie>> getPopularMovies() {
+        return movieApiClient.getPopularMovies();
     }
 
 
     public void searchMovieApi(String query, int pageNumber) {
 
-        mQuery = query;
-        mPageNumber = pageNumber;
+        this.query = query;
+        this.pageNumber = pageNumber;
         movieApiClient.searchMoviesApi(query, pageNumber);
     }
 
-    public void searchMoviePopular(int pageNumber) {
+    public void searchPopularMovie(int pageNumber) {
 
-        mPageNumber = pageNumber;
+        this.pageNumber = pageNumber;
         movieApiClient.searchMoviesApiPopular(pageNumber);
     }
 
     public void searchNextPage() {
-        searchMovieApi(mQuery, mPageNumber + 1);
+        searchMovieApi(query, pageNumber + 1);
     }
 }

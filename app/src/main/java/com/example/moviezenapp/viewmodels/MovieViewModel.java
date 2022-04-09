@@ -1,10 +1,9 @@
 package com.example.moviezenapp.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.moviezenapp.models.MovieModel;
+import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.repositories.MovieRepository;
 
 import java.util.List;
@@ -17,12 +16,12 @@ public class MovieViewModel extends ViewModel {
         repository = MovieRepository.getInstance();
     }
 
-    public LiveData<List<MovieModel>> getMovies() {
+    public LiveData<List<Movie>> getMovies() {
         return repository.getMovies();
     }
 
-    public LiveData<List<MovieModel>> getMoviesPopular() {
-        return repository.getMoviesPopular();
+    public LiveData<List<Movie>> getMoviesPopular() {
+        return repository.getPopularMovies();
     }
 
     public void searchMovieApi(String query, int pageNumber) {
@@ -31,7 +30,7 @@ public class MovieViewModel extends ViewModel {
 
 
     public void searchMovieApiPopular(int pageNumber) {
-        repository.searchMoviePopular(pageNumber);
+        repository.searchPopularMovie(pageNumber);
     }
 
     public void searchNextPage() {

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MovieModel implements Parcelable {
+public class Movie implements Parcelable {
 
     private String title;
     private String poster_path;
@@ -18,7 +18,7 @@ public class MovieModel implements Parcelable {
     private String original_language;
 
 
-    public MovieModel(String title, String poster_path, String release_date, int movie_id, float vote_average, float vote_count, String movie_overview, String original_language) {
+    public Movie(String title, String poster_path, String release_date, int movie_id, float vote_average, float vote_count, String movie_overview, String original_language) {
         this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
@@ -29,7 +29,7 @@ public class MovieModel implements Parcelable {
         this.original_language = original_language;
     }
 
-    protected MovieModel(Parcel in) {
+    protected Movie(Parcel in) {
         title = in.readString();
         poster_path = in.readString();
         release_date = in.readString();
@@ -40,15 +40,15 @@ public class MovieModel implements Parcelable {
         original_language = in.readString();
     }
 
-    public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
-        public MovieModel createFromParcel(Parcel in) {
-            return new MovieModel(in);
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
         }
 
         @Override
-        public MovieModel[] newArray(int size) {
-            return new MovieModel[size];
+        public Movie[] newArray(int size) {
+            return new Movie[size];
         }
     };
 

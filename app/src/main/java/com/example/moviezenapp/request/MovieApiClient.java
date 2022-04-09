@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.moviezenapp.AppExecutors;
-import com.example.moviezenapp.models.MovieModel;
+import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.response.MovieSearchResponse;
 import com.example.moviezenapp.utils.Credentials;
 
@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class MovieApiClient {
 
     //live data for search
-    private MutableLiveData<List<MovieModel>> mMovies;
+    private MutableLiveData<List<Movie>> movies;
 
     private static MovieApiClient instance;
 
@@ -30,7 +30,7 @@ public class MovieApiClient {
     private RetrieveMoviesRunnable retrieveMoviesRunnable;
 
     // live data for popular movies
-    private MutableLiveData<List<MovieModel>> moviesPopular;
+    private MutableLiveData<List<Movie>> moviesPopular;
 
     // making popular RUNNABLE
     private RetrieveMoviesRunnablePopular retrieveMoviesRunnablePopular;
@@ -43,16 +43,16 @@ public class MovieApiClient {
     }
 
     private MovieApiClient() {
-        mMovies = new MutableLiveData<>();
+        movies = new MutableLiveData<>();
         moviesPopular = new MutableLiveData<>();
     }
 
 
-    public LiveData<List<MovieModel>> getMovies() {
-        return mMovies;
+    public LiveData<List<Movie>> getMovies() {
+        return movies;
     }
 
-    public LiveData<List<MovieModel>> getMoviesPopular() {
+    public LiveData<List<Movie>> getPopularMovies() {
         return moviesPopular;
     }
 
@@ -114,27 +114,27 @@ public class MovieApiClient {
                 }
 
                 if (response.code() == 200) {
-                    List<MovieModel> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
+                    List<Movie> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
                     if (pageNumber == 1) {
                         // sending data live
                         // post value used for background thread
                         //setValue : not for background thread
-                        mMovies.postValue(list);
+                        movies.postValue(list);
                     } else {
-                        List<MovieModel> currentMovies = mMovies.getValue();
+                        List<Movie> currentMovies = movies.getValue();
                         currentMovies.addAll(list);
-                        mMovies.postValue(currentMovies);
+                        movies.postValue(currentMovies);
 
                     }
                 } else {
                     String error = response.errorBody().string();
                     Log.v("Tag", "Error: " + error);
-                    mMovies.postValue(null);
+                    movies.postValue(null);
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                mMovies.postValue(null);
+                movies.postValue(null);
             }
 
         }
@@ -176,14 +176,14 @@ public class MovieApiClient {
                 }
 
                 if (response2.code() == 200) {
-                    List<MovieModel> list = new ArrayList<>(((MovieSearchResponse) response2.body()).getMovies());
+                    List<Movie> list = new ArrayList<>(((MovieSearchResponse) response2.body()).getMovies());
                     if (pageNumber == 1) {
                         // sending data live
                         // post value used for background thread
                         //setValue : not for background thread
                         moviesPopular.postValue(list);
                     } else {
-                        List<MovieModel> currentMovies = moviesPopular.getValue();
+                        List<Movie> currentMovies = moviesPopular.getValue();
                         currentMovies.addAll(list);
                         moviesPopular.postValue(currentMovies);
 
@@ -196,7 +196,7 @@ public class MovieApiClient {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                mMovies.postValue(null);
+                movies.postValue(null);
             }
 
         }

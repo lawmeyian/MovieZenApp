@@ -1,9 +1,7 @@
 package com.example.moviezenapp.adapters;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -16,16 +14,16 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     //Widgets
     ImageView imageView;
-    TextView movie_title, desc, release_date,language,vote_count, vote_average;
+    TextView movie_title, desc, release_date, language, vote_count, vote_average;
 //    RatingBar ratingBar;
 
     // Click listener
-    OnMovieListener onMovieListener;
+    OnMovieClickListener onMovieClickListener;
 
 
-    public MovieViewHolder(@NonNull View itemView, OnMovieListener onMovieListener) {
+    public MovieViewHolder(@NonNull View itemView, OnMovieClickListener onMovieClickListener) {
         super(itemView);
-        this.onMovieListener = onMovieListener;
+        this.onMovieClickListener = onMovieClickListener;
         imageView = itemView.findViewById(R.id.movie_image);
         movie_title = itemView.findViewById(R.id.textView_title_details);
         desc = itemView.findViewById(R.id.textView_detail);
@@ -41,9 +39,8 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-//        onMovieListener.onMovieClick(getAbsoluteAdapterPosition());
-        if (onMovieListener != null) {
-            onMovieListener.onMovieClick(getBindingAdapterPosition());
+        if (onMovieClickListener != null) {
+            onMovieClickListener.onMovieClick(getBindingAdapterPosition());
         }
 
     }

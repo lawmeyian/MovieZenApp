@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.models.MovieModel;
+import com.example.moviezenapp.models.Movie;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<MovieModel> movies;
-    private final OnMovieListener onMovieListener;
+public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<Movie> movies;
+    private final OnMovieClickListener onMovieClickListener;
 
-    public MovieRecyclerView(OnMovieListener onMovieListener) {
-        this.onMovieListener = onMovieListener;
+    public MovieAdapter(OnMovieClickListener onMovieClickListener) {
+        this.onMovieClickListener = onMovieClickListener;
     }
 
     @NonNull
@@ -28,7 +27,7 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,
                 false);
-        return new MovieViewHolder(view, onMovieListener);
+        return new MovieViewHolder(view, onMovieClickListener);
     }
 
     @Override
@@ -51,14 +50,14 @@ public class MovieRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setMovies(List<MovieModel> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
 
     // Getting the id of the movie click
 
-    public MovieModel getSelectedMovie(int position) {
+    public Movie getSelectedMovie(int position) {
         if (movies != null) {
             if (movies.size() > 0) {
                 return movies.get(position);
