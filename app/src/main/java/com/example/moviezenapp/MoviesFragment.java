@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,7 +32,7 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
     // View model
     private MovieViewModel movieViewModel;
 
-    boolean isPopular = true;
+//    boolean isPopular = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,10 +46,16 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
 
         ConfigureRecyclerView();
         ObserveAnyChange();
+
         ObservePopularMovies();
         movieViewModel.searchMovieApiPopular(1);
+
         return view;
+
+
     }
+
+
 
     private void ObservePopularMovies() {
         movieViewModel.getMoviesPopular().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {

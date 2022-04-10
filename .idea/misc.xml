@@ -11,15 +11,18 @@
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/drawable/ic_movies.xml" value="0.124" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/drawable/ic_search.xml" value="0.124" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_main.xml" value="0.25052083333333336" />
-        <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_movie_details.xml" value="0.264" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_lists.xml" value="0.21603260869565216" />
-        <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_movies.xml" value="0.21603260869565216" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_search.xml" value="0.21603260869565216" />
-        <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/movie_details.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/movie_list_item.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/layout/trial.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/menu/bottom_menu.xml" value="0.25052083333333336" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_movie_details.xml" value="0.4" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_lists.xml" value="0.1" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_movies.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_search.xml" value="0.159375" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/movie_list_item.xml" value="0.25" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
   </component>
