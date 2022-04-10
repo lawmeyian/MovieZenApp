@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.moviezenapp.AppExecutors;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.response.MovieSearchResponse;
+import com.example.moviezenapp.response.MovieResponse;
 import com.example.moviezenapp.utils.Credentials;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class MovieApiClient {
     private RetrieveMoviesRunnable retrieveMoviesRunnable;
 
     // live data for popular movies
-    private MutableLiveData<List<Movie>> moviesPopular;
+    private MutableLiveData<List<Movie>> popularMovies;
 
     // making popular RUNNABLE
     private RetrieveMoviesRunnablePopular retrieveMoviesRunnablePopular;
@@ -44,7 +44,7 @@ public class MovieApiClient {
 
     private MovieApiClient() {
         movies = new MutableLiveData<>();
-        moviesPopular = new MutableLiveData<>();
+        popularMovies = new MutableLiveData<>();
     }
 
 
@@ -53,7 +53,7 @@ public class MovieApiClient {
     }
 
     public LiveData<List<Movie>> getPopularMovies() {
-        return moviesPopular;
+        return popularMovies;
     }
 
     public void searchMoviesApi(String query, int pageNumber) {
@@ -114,7 +114,7 @@ public class MovieApiClient {
                 }
 
                 if (response.code() == 200) {
-                    List<Movie> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
+                    List<Movie> list = new ArrayList<>(((MovieResponse) response.body()).getMovies());
                     if (pageNumber == 1) {
                         // sending data live
                         // post value used for background thread
@@ -140,7 +140,7 @@ public class MovieApiClient {
         }
         // search Method/query
 
-        private Call<MovieSearchResponse> getMovies(String query, int pageNumber) {
+        private Call<MovieResponse> getMovies(String query, int pageNumber) {
             return ServiceGenerator.getMovieApi().searchMovie(
                     Credentials.API_KEY,
                     query,
@@ -176,22 +176,22 @@ public class MovieApiClient {
                 }
 
                 if (response2.code() == 200) {
-                    List<Movie> list = new ArrayList<>(((MovieSearchResponse) response2.body()).getMovies());
+                    List<Movie> list = new ArrayList<>(((MovieResponse) response2.body()).getMovies());
                     if (pageNumber == 1) {
                         // sending data live
                         // post value used for background thread
                         //setValue : not for background thread
-                        moviesPopular.postValue(list);
+                        popularMovies.postValue(list);
                     } else {
-                        List<Movie> currentMovies = moviesPopular.getValue();
+                        List<Movie> currentMovies = popularMovies.getValue();
                         currentMovies.addAll(list);
-                        moviesPopular.postValue(currentMovies);
+                        popularMovies.postValue(currentMovies);
 
                     }
                 } else {
                     String error = response2.errorBody().string();
                     Log.v("Tag", "Error: " + error);
-                    moviesPopular.postValue(null);
+                    popularMovies.postValue(null);
                 }
 
             } catch (IOException e) {
@@ -202,7 +202,7 @@ public class MovieApiClient {
         }
         // search Method/query
 
-        private Call<MovieSearchResponse> getMoviesPopular(int pageNumber) {
+        private Call<MovieResponse> getMoviesPopular(int pageNumber) {
             return ServiceGenerator.getMovieApi().getPopularMovies(
                     Credentials.API_KEY,
                     pageNumber

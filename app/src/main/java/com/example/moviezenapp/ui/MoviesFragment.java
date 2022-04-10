@@ -1,12 +1,10 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.MovieAdapter;
 import com.example.moviezenapp.adapters.OnMovieClickListener;
 import com.example.moviezenapp.models.Movie;
+import com.example.moviezenapp.ui.MovieDetails;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 
 import java.util.List;
@@ -31,8 +31,6 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
 
     // View model
     private MovieViewModel movieViewModel;
-
-//    boolean isPopular = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

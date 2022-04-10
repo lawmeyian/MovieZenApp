@@ -1,7 +1,7 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.utils;
 
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.response.MovieSearchResponse;
+import com.example.moviezenapp.response.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface MovieApi {
     //search for movies
     @GET("/3/search/movie")
-    Call<MovieSearchResponse> searchMovie(
+    Call<MovieResponse> searchMovie(
             @Query("api_key") String key,
             @Query("query") String query,
             @Query("page") int page
@@ -26,7 +26,7 @@ public interface MovieApi {
 
     // get popular movies
     @GET("3/movie/popular")
-    Call<MovieSearchResponse> getPopularMovies(
+    Call<MovieResponse> getPopularMovies(
             @Query("api_key") String key,
             @Query("page") int page
     );

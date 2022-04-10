@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 
 public class MovieDetails extends AppCompatActivity {

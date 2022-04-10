@@ -4,23 +4,23 @@ import com.example.moviezenapp.models.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-// this class is for single movie request
+import java.util.List;
+
 public class MovieResponse {
 
-    // 1. Find the movie object
     @SerializedName("results")
-    @Expose
-    private Movie movie;
+    @Expose()
+    private List<Movie> movies;
 
-    public Movie getMovie()
-    {
-        return movie;
+
+    public List<Movie> getMovies() {
+        return movies;
     }
 
     @Override
     public String toString() {
-        return "MovieResponse{" +
-                "movie=" + movie +
+        return "MovieSearchResponse{" +
+                ", movies=" + movies +
                 '}';
     }
 }

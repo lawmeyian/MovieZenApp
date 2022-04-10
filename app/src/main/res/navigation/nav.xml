@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.example.moviezenapp.MoviesFragment"
+        android:name="com.example.moviezenapp.ui.MoviesFragment"
         android:label="Popular Movies"
         tools:layout="@layout/fragment_movies" />
     <fragment
         android:id="@+id/listsFragment"
-        android:name="com.example.moviezenapp.ListsFragment"
+        android:name="com.example.moviezenapp.ui.ListsFragment"
         android:label="Lists"
         tools:layout="@layout/fragment_lists" />
 

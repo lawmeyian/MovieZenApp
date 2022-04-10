@@ -1,6 +1,6 @@
 package com.example.moviezenapp.request;
 
-import com.example.moviezenapp.MovieApi;
+import com.example.moviezenapp.utils.MovieApi;
 import com.example.moviezenapp.utils.Credentials;
 
 import retrofit2.Retrofit;
