@@ -3,7 +3,7 @@ package com.example.moviezenapp.repositories;
 import androidx.lifecycle.LiveData;
 
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.request.MovieApiClient;
+import com.example.moviezenapp.network.MovieApiClient;
 
 import java.util.List;
 

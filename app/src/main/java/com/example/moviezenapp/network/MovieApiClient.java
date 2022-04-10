@@ -1,4 +1,4 @@
-package com.example.moviezenapp.request;
+package com.example.moviezenapp.network;
 
 import android.util.Log;
 
@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.moviezenapp.AppExecutors;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.response.MovieResponse;
-import com.example.moviezenapp.utils.Credentials;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -142,7 +140,7 @@ public class MovieApiClient {
 
         private Call<MovieResponse> getMovies(String query, int pageNumber) {
             return ServiceGenerator.getMovieApi().searchMovie(
-                    Credentials.API_KEY,
+                    "ca89b4fd28642ed9d9ef8611e1978832",
                     query,
                     pageNumber
             );
@@ -204,7 +202,7 @@ public class MovieApiClient {
 
         private Call<MovieResponse> getMoviesPopular(int pageNumber) {
             return ServiceGenerator.getMovieApi().getPopularMovies(
-                    Credentials.API_KEY,
+                    "ca89b4fd28642ed9d9ef8611e1978832",
                     pageNumber
             );
 

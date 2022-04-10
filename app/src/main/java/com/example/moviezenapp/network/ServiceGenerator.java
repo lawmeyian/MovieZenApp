@@ -1,7 +1,6 @@
-package com.example.moviezenapp.request;
+package com.example.moviezenapp.network;
 
-import com.example.moviezenapp.utils.MovieApi;
-import com.example.moviezenapp.utils.Credentials;
+import com.example.moviezenapp.network.MovieApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,7 +11,7 @@ public class ServiceGenerator {
     public static MovieApi getMovieApi() {
         if (movieApi == null) {
             movieApi = new Retrofit.Builder()
-                    .baseUrl(Credentials.BASE_URL)
+                    .baseUrl("https://api.themoviedb.org")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(MovieApi.class);

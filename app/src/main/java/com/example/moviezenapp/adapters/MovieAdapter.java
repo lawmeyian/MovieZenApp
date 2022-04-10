@@ -32,7 +32,6 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        ((MovieViewHolder) holder).movie_title.setText(movies.get(position).getTitle());
         // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
                 .into((((MovieViewHolder) holder).imageView));

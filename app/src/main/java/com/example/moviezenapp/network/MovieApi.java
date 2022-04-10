@@ -1,7 +1,6 @@
-package com.example.moviezenapp.utils;
+package com.example.moviezenapp.network;
 
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.response.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

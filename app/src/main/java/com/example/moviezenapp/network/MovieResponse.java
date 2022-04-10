@@ -1,4 +1,4 @@
-package com.example.moviezenapp.response;
+package com.example.moviezenapp.network;
 
 import com.example.moviezenapp.models.Movie;
 import com.google.gson.annotations.Expose;

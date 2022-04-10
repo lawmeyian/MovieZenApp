@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
+        setupNavigation();
 
+    }
+
+    private void setupNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
@@ -46,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.moviesFragment,
                 R.id.listsFragment).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-
     }
 
     @Override
