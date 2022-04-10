@@ -8,30 +8,11 @@
 
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#2196F3"
-            app:queryHint="Looking for a movie?">
-
-        </androidx.appcompat.widget.SearchView>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="595dp"
-
-        android:layout_marginBottom="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.57"
@@ -57,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#42BDC5"
+        android:layout_alignParentBottom="true"
         app:itemIconTint="@drawable/bottom_nav_icon_color"
         app:itemTextColor="@drawable/bottom_nav_text_color"
         app:layout_constraintBottom_toBottomOf="parent"

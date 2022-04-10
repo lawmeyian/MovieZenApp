@@ -2,6 +2,7 @@ package com.example.moviezenapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,32 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        final SearchView searchView =  findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                movieViewModel.searchMovieApi(
-                        // The search string gotten from searchView
-                        query,
-                        1
-                );
 
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-             movieViewModel.searchMovieApiPopular(1);
-            return false;}
-        });
-
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               isPopular = false;
-            }
-        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -71,4 +49,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar, menu);
+        MenuItem actionSearch = menu.findItem(R.id.nav_search);
+        SearchView searchView = (SearchView) actionSearch.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                movieViewModel.searchMovieApi(
+                        // The search string gotten from searchView
+                        query,
+                        1
+                );
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                movieViewModel.searchMovieApiPopular(1);
+                return false;
+            }
+        });
+
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isPopular = false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
 }
