@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieZenApp">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MovieDetails"
             android:exported="false" />
         <activity
