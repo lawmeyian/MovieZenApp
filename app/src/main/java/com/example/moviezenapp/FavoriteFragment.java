@@ -4,35 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.moviezenapp.adapters.MovieAdapter;
-import com.example.moviezenapp.adapters.OnMovieClickListener;
-import com.example.moviezenapp.adapters.WatchlistAdapter;
-import com.example.moviezenapp.adapters.WatchlistListener;
+import com.example.moviezenapp.adapters.FavoriteMoviesAdapter;
+import com.example.moviezenapp.adapters.FavoriteMoviesListener;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.ui.MovieDetails;
-import com.example.moviezenapp.viewmodels.MovieViewModel;
 import com.example.moviezenapp.viewmodels.WatchlistViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements WatchlistListener {
+public class FavoriteFragment extends Fragment implements FavoriteMoviesListener {
     private WatchlistViewModel watchlistViewModel;
     RecyclerView movieList;
-    private WatchlistAdapter watchlistRecyclerAdapter;
+    private FavoriteMoviesAdapter watchlistRecyclerAdapter;
    List<Movie> moviesList;
 
     @Override
@@ -55,7 +48,7 @@ moviesList = new ArrayList<>();
 //                textView.setText("Empty");
 //            }
             moviesList.addAll(movies);
-            watchlistRecyclerAdapter = new WatchlistAdapter(moviesList,this);
+            watchlistRecyclerAdapter = new FavoriteMoviesAdapter(moviesList,this);
             movieList.setAdapter(watchlistRecyclerAdapter);
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
@@ -70,7 +63,7 @@ moviesList = new ArrayList<>();
 
     private void ConfigureRecyclerView() {
 
-        watchlistRecyclerAdapter = new WatchlistAdapter(moviesList,this);
+        watchlistRecyclerAdapter = new FavoriteMoviesAdapter(moviesList,this);
         movieList.setAdapter(watchlistRecyclerAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);

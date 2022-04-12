@@ -14,11 +14,11 @@ import com.example.moviezenapp.models.Movie;
 
 import java.util.List;
 
-public class WatchlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FavoriteMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Movie> movies;
-    private final WatchlistListener watchlistListener;
+    private final FavoriteMoviesListener watchlistListener;
 
-    public WatchlistAdapter(List<Movie> movies, WatchlistListener watchlistListener) {
+    public FavoriteMoviesAdapter(List<Movie> movies, FavoriteMoviesListener watchlistListener) {
         this.movies = movies;
         this.watchlistListener = watchlistListener;
     }
@@ -28,14 +28,14 @@ public class WatchlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,
                 false);
-        return new WatchlistViewHolder(view, watchlistListener);
+        return new FavoriteMoviesViewHolder(view, watchlistListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
-                .into((((WatchlistViewHolder) holder).imageView));
+                .into((((FavoriteMoviesViewHolder) holder).imageView));
 //        ((MovieViewHolder)holder).ratingBar.setRating((movies.get(position).getVote_average())/2);
 
     }

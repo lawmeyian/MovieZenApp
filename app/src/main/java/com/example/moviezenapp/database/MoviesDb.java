@@ -9,11 +9,12 @@ import androidx.room.RoomDatabase;
 import com.example.moviezenapp.dao.MovieDao;
 import com.example.moviezenapp.models.Movie;
 
-@Database(entities = {Movie.class}, version = 1)
+@Database(entities = {Movie.class}, version = 6)
 public abstract class MoviesDb extends RoomDatabase {
     private static MoviesDb instance;
 
     public abstract MovieDao movieDao();
+
 
     public static synchronized MoviesDb getInstance(Context context) {
         if (instance == null) {

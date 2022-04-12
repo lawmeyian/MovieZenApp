@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 
-public class WatchlistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FavoriteMoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     //Widgets
     ImageView imageView;
     TextView movie_title, desc, release_date, language, vote_count, vote_average;
 
     // Click listener
-    WatchlistListener watchlistListener;
+    FavoriteMoviesListener watchlistListener;
     Movie movie;
 
 
-    public WatchlistViewHolder(@NonNull View itemView, WatchlistListener watchlistListener) {
+    public FavoriteMoviesViewHolder(@NonNull View itemView, FavoriteMoviesListener watchlistListener) {
         super(itemView);
         this.watchlistListener = watchlistListener;
         imageView = itemView.findViewById(R.id.movie_image);

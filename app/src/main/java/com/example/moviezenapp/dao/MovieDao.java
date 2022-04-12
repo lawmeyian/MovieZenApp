@@ -17,10 +17,12 @@ import io.reactivex.rxjava3.disposables.Disposable;
 @Dao
 public interface MovieDao {
     @Query("SELECT * FROM movies")
-    LiveData<List<Movie>> getWatchlist();
+    LiveData<List<Movie>> getFavoriteList();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Movie movie);
+    void insertFav(Movie movie);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertWatched(Movie movie);
 
 
     @Delete

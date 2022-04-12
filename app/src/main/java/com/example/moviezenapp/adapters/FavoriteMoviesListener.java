@@ -1,5 +1,5 @@
 package com.example.moviezenapp.adapters;
 
-public interface WatchlistListener {
+public interface FavoriteMoviesListener {
     void onMovieClick(int position);
 }

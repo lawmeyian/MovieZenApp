@@ -23,13 +23,13 @@ private final MovieDao movieDao;
         super(application);
         moviesDb = MoviesDb.getInstance(application);
         movieDao = moviesDb.movieDao();
-        allMovies = movieDao.getWatchlist();
+        allMovies = movieDao.getFavoriteList();
         executorService = Executors.newFixedThreadPool(2);
     }
 
-    public void addToWatchlist(Movie movie)
+    public void addToFavorite(Movie movie)
     {
-        executorService.execute(() ->  moviesDb.movieDao().insert(movie));
+        executorService.execute(() ->  moviesDb.movieDao().insertFav(movie));
     }
 
     public LiveData<List<Movie>> getAllMovies() {

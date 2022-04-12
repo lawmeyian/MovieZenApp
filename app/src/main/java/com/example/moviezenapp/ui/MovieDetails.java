@@ -1,7 +1,6 @@
 package com.example.moviezenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -16,13 +15,6 @@ import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-import com.example.moviezenapp.viewmodels.MovieViewModel;
-
-import java.util.List;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MovieDetails extends AppCompatActivity {
 
@@ -49,26 +41,18 @@ public class MovieDetails extends AppCompatActivity {
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
         favButton = findViewById(R.id.favButton);
-//        favButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////             movieDetailsViewModel.addToWatchlist(movie);
-//                Toast.makeText(getApplicationContext(), "Added to watchlist", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
         GetDataFromIntent();
 
     }
 
     public void addToWatchList(View v) {
-        movieDetailsViewModel.addToWatchlist(movie);
-        Toast.makeText(getApplicationContext(), "Added to watchlist: " , Toast.LENGTH_SHORT).show();
+        movieDetailsViewModel.addToFavorite(movie);
+        Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
     }
+
 
     private void GetDataFromIntent() {
 
-//            Movie movieModel = getIntent().getParcelableExtra("movie");
         movie = (Movie) getIntent().getSerializableExtra("movie");
 
 
@@ -84,9 +68,6 @@ public class MovieDetails extends AppCompatActivity {
         Log.v("Tag", "Avg############# " + movie.getVote_average());
         Log.v("Tag", "Lang############# " + movie.getOriginal_language());
         Log.v("Tag", "count############# " + movie.getVote_count());
-//            ratingBarDetails.setRating((movieModel.getVote_average())/2);
-//            Log.v("Tag", "Overview############# " + movieModel.getMovie_overview());
-
 
     }
 }

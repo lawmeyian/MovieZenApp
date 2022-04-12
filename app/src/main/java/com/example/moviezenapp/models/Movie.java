@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Entity(tableName = "movies")
 
-public class Movie implements  Serializable {
+public class Movie implements Serializable {
 
     private String title;
     private String poster_path;
@@ -37,32 +37,10 @@ public class Movie implements  Serializable {
         this.original_language = original_language;
     }
 
-//    protected Movie(Parcel in) {
-//        title = in.readString();
-//        poster_path = in.readString();
-//        release_date = in.readString();
-//        movie_id = in.readInt();
-//        vote_average = in.readFloat();
-//        vote_count = in.readFloat();
-//        overview = in.readString();
-//        original_language = in.readString();
-//    }
-
-//    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-//        @Override
-//        public Movie createFromParcel(Parcel in) {
-//            return new Movie(in);
-//        }
-//
-//        @Override
-//        public Movie[] newArray(int size) {
-//            return new Movie[size];
-//        }
-//    };
-
     public String getTitle() {
         return title;
     }
+
 
     public String getPoster_path() {
         return poster_path;
@@ -91,23 +69,6 @@ public class Movie implements  Serializable {
     public String getOriginal_language() {
         return original_language;
     }
-
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel parcel, int i) {
-//        parcel.writeString(title);
-//        parcel.writeString(poster_path);
-//        parcel.writeString(release_date);
-//        parcel.writeInt(movie_id);
-//        parcel.writeFloat(vote_average);
-//        parcel.writeFloat(vote_count);
-//        parcel.writeString(overview);
-//        parcel.writeString(original_language);
-//    }
 
     public void setTitle(String title) {
         this.title = title;

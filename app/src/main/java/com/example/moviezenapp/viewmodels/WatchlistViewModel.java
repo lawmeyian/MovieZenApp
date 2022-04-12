@@ -20,6 +20,6 @@ public class WatchlistViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Movie>> loadWatchlist() {
-        return moviesDb.movieDao().getWatchlist();
+        return moviesDb.movieDao().getFavoriteList();
     }
 }
