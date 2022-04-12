@@ -4,27 +4,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+public class WatchlistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     //Widgets
     ImageView imageView;
     TextView movie_title, desc, release_date, language, vote_count, vote_average;
 
     // Click listener
-    OnMovieClickListener onMovieClickListener;
+    WatchlistListener watchlistListener;
     Movie movie;
 
 
-    public MovieViewHolder(@NonNull View itemView, OnMovieClickListener onMovieClickListener) {
+    public WatchlistViewHolder(@NonNull View itemView, WatchlistListener watchlistListener) {
         super(itemView);
-        this.onMovieClickListener = onMovieClickListener;
+        this.watchlistListener = watchlistListener;
         imageView = itemView.findViewById(R.id.movie_image);
         movie_title = itemView.findViewById(R.id.textView_title_details);
         desc = itemView.findViewById(R.id.textView_detail);
@@ -40,9 +38,10 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (onMovieClickListener != null) {
-            onMovieClickListener.onMovieClick(getBindingAdapterPosition());
+        if (watchlistListener != null) {
+            watchlistListener.onMovieClick(getBindingAdapterPosition());
         }
 
     }
+
 }
