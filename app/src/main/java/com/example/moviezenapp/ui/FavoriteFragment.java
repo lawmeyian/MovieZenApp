@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.FavoriteMoviesAdapter;
 import com.example.moviezenapp.adapters.FavoriteMoviesListener;
 import com.example.moviezenapp.models.Movie;
@@ -23,7 +24,7 @@ import com.example.moviezenapp.viewmodels.FavoriteViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistFragment extends Fragment implements FavoriteMoviesListener {
+public class FavoriteFragment extends Fragment implements FavoriteMoviesListener {
 
     private FavoriteViewModel favoriteViewModel;
     RecyclerView movieList;
@@ -34,7 +35,7 @@ public class WatchlistFragment extends Fragment implements FavoriteMoviesListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_watchlist, container, false);
+        View view =  inflater.inflate(R.layout.fragment_favorite, container, false);
         movieList = view.findViewById(R.id.recyclerView);
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
         moviesList = new ArrayList<>();
