@@ -23,12 +23,13 @@ import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.ui.MovieDetails;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoviesFragment extends Fragment implements OnMovieClickListener {
     RecyclerView movieList;
     private MovieAdapter movieRecyclerAdapter;
-
+    List<Movie> moviesList;
     // View model
     private MovieViewModel movieViewModel;
 
@@ -36,11 +37,11 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
-
+        moviesList = new ArrayList<>();
             movieList = view.findViewById(R.id.recyclerView);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
-            movieRecyclerAdapter = new MovieAdapter(this);
+            movieRecyclerAdapter = new MovieAdapter(moviesList,this);
 
         ConfigureRecyclerView();
         ObserveAnyChange();
@@ -89,7 +90,7 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
 
         private void ConfigureRecyclerView() {
 
-            movieRecyclerAdapter = new MovieAdapter(this);
+            movieRecyclerAdapter = new MovieAdapter(moviesList,this);
             movieList.setAdapter(movieRecyclerAdapter);
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);

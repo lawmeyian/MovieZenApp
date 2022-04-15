@@ -1,28 +1,18 @@
 package com.example.moviezenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.adapters.FavoriteMoviesAdapter;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-
-import java.util.List;
-
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 public class MovieDetails extends AppCompatActivity {
 

@@ -18,7 +18,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Movie> movies;
     private final OnMovieClickListener onMovieClickListener;
 
-    public MovieAdapter(OnMovieClickListener onMovieClickListener) {
+    public MovieAdapter(List<Movie> movies, OnMovieClickListener onMovieClickListener) {
+        this.movies = movies;
         this.onMovieClickListener = onMovieClickListener;
     }
 
