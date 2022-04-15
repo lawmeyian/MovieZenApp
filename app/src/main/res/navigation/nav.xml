@@ -16,11 +16,10 @@
         android:label="Lists"
         tools:layout="@layout/fragment_lists" />
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.moviezenapp.FavoriteFragment"
+        android:id="@+id/watchlistFragment"
+        android:name="com.example.moviezenapp.WatchlistFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorite" />
-
+        tools:layout="@layout/fragment_watchlist" />
 
 
 </navigation>

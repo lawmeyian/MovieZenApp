@@ -35,12 +35,12 @@ public class Movie implements Serializable {
         this.vote_count = vote_count;
         this.overview = overview;
         this.original_language = original_language;
+
     }
 
     public String getTitle() {
         return title;
     }
-
 
     public String getPoster_path() {
         return poster_path;

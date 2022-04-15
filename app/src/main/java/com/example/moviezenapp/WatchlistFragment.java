@@ -12,41 +12,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.moviezenapp.adapters.FavoriteMoviesAdapter;
 import com.example.moviezenapp.adapters.FavoriteMoviesListener;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.ui.MovieDetails;
-import com.example.moviezenapp.viewmodels.WatchlistViewModel;
+import com.example.moviezenapp.viewmodels.FavoriteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements FavoriteMoviesListener {
-    private WatchlistViewModel watchlistViewModel;
+public class WatchlistFragment extends Fragment implements FavoriteMoviesListener {
+
+    private FavoriteViewModel favoriteViewModel;
     RecyclerView movieList;
     private FavoriteMoviesAdapter watchlistRecyclerAdapter;
-   List<Movie> moviesList;
+    List<Movie> moviesList;
+    TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view =  inflater.inflate(R.layout.fragment_watchlist, container, false);
         movieList = view.findViewById(R.id.recyclerView);
-        watchlistViewModel = new ViewModelProvider(this).get(WatchlistViewModel.class);
-moviesList = new ArrayList<>();
-//        watchlistRecyclerAdapter = new WatchlistAdapter(moviesList,this);
+        favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
+        moviesList = new ArrayList<>();
+        watchlistRecyclerAdapter = new FavoriteMoviesAdapter(moviesList,this);
 
 
-        watchlistViewModel.loadWatchlist().observe(getViewLifecycleOwner(), movies -> {
-//            if (!movies.isEmpty()) {
-//                textView.setText("");
-//                for (Movie m : movies) {
-//                    textView.append(m.getTitle() + "\n");
-//                }
-//            } else {
-//                textView.setText("Empty");
-//            }
+        favoriteViewModel.loadFavoriteList().observe(getViewLifecycleOwner(), movies -> {
             moviesList.addAll(movies);
             watchlistRecyclerAdapter = new FavoriteMoviesAdapter(moviesList,this);
             movieList.setAdapter(watchlistRecyclerAdapter);

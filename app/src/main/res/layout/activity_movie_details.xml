@@ -139,12 +139,22 @@
                 android:layout_marginBottom="20dp"
                 android:text="overview" />
 
-            <Button
-                android:id="@+id/favButton"
+
+<!--            <Button-->
+<!--                android:id="@+id/button"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="addToFavorites"-->
+<!--                android:text="Add to favorites" />-->
+            <ImageView
+                android:id="@+id/img_favorite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addToWatchList"
-                android:text="Add to watchlist" />
+                android:src="@drawable/ic_favorite_outline"
+                android:visibility="gone"
+                >
+
+            </ImageView>
 
 
 

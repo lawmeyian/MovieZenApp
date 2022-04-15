@@ -11,15 +11,17 @@ import com.example.moviezenapp.models.Movie;
 
 import java.util.List;
 
-public class WatchlistViewModel extends AndroidViewModel {
+public class FavoriteViewModel extends AndroidViewModel {
+
     private MoviesDb moviesDb;
 
-    public WatchlistViewModel(@NonNull Application application) {
+    public FavoriteViewModel(@NonNull Application application) {
         super(application);
         moviesDb = MoviesDb.getInstance(application);
     }
 
-    public LiveData<List<Movie>> loadWatchlist() {
-        return moviesDb.movieDao().getFavoriteList();
+    public LiveData<List<Movie>> loadFavoriteList() {
+        return moviesDb.movieDao().getAll();
     }
+
 }
