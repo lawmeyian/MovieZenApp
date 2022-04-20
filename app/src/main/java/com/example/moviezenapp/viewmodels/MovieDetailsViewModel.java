@@ -40,6 +40,8 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         executorService.execute(() -> moviesDb.movieDao().add(movie));
     }
 
+
+
     public LiveData<List<Movie>> getAllMovies() {
         return allMovies;
     }
@@ -50,10 +52,20 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     public LiveData<List<Movie>> getMovieFromFavorites(int movieId) {
         return moviesDb.movieDao().getMoviesFromFavorites(movieId);
     }
+    public LiveData<List<Watchlist>> getMovieFromWatchlist(int movieId) {
+        return moviesDb.watchlistDao().getMoviesFromWatchlist(movieId);
+    }
+
+
 
     public void removeFromFavorites(Movie movie)
     {
         executorService.execute(() -> moviesDb.movieDao().delete(movie));
+    }
+
+    public void removeFromWatchlist(Watchlist movie)
+    {
+        executorService.execute(() -> moviesDb.watchlistDao().delete(movie));
     }
 
     public void insertWatchlistItem(Watchlist... watchlists) {

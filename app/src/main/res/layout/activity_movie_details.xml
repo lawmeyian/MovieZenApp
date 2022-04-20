@@ -164,7 +164,18 @@
             android:id="@+id/addToWatchlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="watchlist" />
+            android:text="watchlist"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/img_watchlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_watch"
+            android:visibility="gone"
+
+            >
+
+        </ImageView>
 
     </LinearLayout>
 </ScrollView>

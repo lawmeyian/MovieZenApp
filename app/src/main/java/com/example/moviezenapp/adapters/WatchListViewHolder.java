@@ -33,7 +33,7 @@ public class WatchListViewHolder extends RecyclerView.ViewHolder implements View
         vote_count = itemView.findViewById(R.id.vote_count);
         vote_average = itemView.findViewById(R.id.vote_average);
 //        ratingBar = itemView.findViewById(R.id.ratingBar_details);
-        watchlist = itemView.findViewById(R.id.addToWatchlist);
+        watchlist = itemView.findViewById(R.id.img_watchlist);
 
         itemView.setOnClickListener(this);
 

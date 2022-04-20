@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,7 +33,9 @@ public class MovieDetails extends AppCompatActivity {
     ImageView imageFav;
 Watchlist watchlistObject;
     private Boolean isMovieAvailableInFavorites = false;
-    Button watchlist;
+    private Boolean isMovieAvailableInWatchlist = false;
+    ImageView watchlist;
+    Button watchlistButton;
 //    private RatingBar ratingBarDetails;
 
 
@@ -43,7 +46,8 @@ Watchlist watchlistObject;
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         imageFav = findViewById(R.id.img_favorite);
         watchlistObject = new Watchlist();
-        watchlist = findViewById(R.id.addToWatchlist);
+        watchlist = findViewById(R.id.img_watchlist);
+        watchlistButton = findViewById(R.id.addToWatchlist);
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.textView_title_details);
         descDetails = findViewById(R.id.textView_detail);
@@ -53,11 +57,29 @@ Watchlist watchlistObject;
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
 
+        watchlistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToWatchlist(movie);
+                Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 watchlist.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        addToWatchlist(movie);
-        Toast.makeText(getApplicationContext(), "added: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+        if (isMovieAvailableInWatchlist) {
+            movieDetailsViewModel.removeFromWatchlist(watchlistObject);
+            isMovieAvailableInWatchlist = false;
+            watchlist.setImageResource(R.drawable.ic_watch);
+            Toast.makeText(getApplicationContext(), "Removed from watchlist: " + watchlistObject.getTitle(), Toast.LENGTH_SHORT).show();
+        } else {
+            addToWatchlist(movie);
+            isMovieAvailableInWatchlist = true;
+            watchlist.setImageResource(R.drawable.ic_watched);
+
+            Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+        }
     }
 });
 
@@ -84,8 +106,10 @@ watchlist.setOnClickListener(new View.OnClickListener() {
         if(getIntent().hasExtra("movie")) {
             GetDataFromIntent();
             imageFav.setVisibility(View.VISIBLE);
+            watchlistButton.setVisibility(View.VISIBLE);
         } else if (getIntent().hasExtra("watchlist")){
             getData();
+            watchlist.setVisibility(View.VISIBLE);
         }
 
     }
@@ -106,6 +130,7 @@ watchlist.setOnClickListener(new View.OnClickListener() {
     private void getData()
     {
         watchlistObject = (Watchlist) getIntent().getSerializableExtra("watchlist");
+        checkMoviesInWatchlist();
 
         titleDetails.setText(watchlistObject.getTitle());
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + watchlistObject.getPoster_path()).into(imageViewDetails);
@@ -137,7 +162,7 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
     private void checkMoviesInFavoriteList() {
         movieDetailsViewModel.getMovieFromFavorites(movie.getId()).observe(this, movies -> {
-
+            Log.v("sizefav", "onChanged " + movies.size());
             if (movies.size() == 1) {
                 isMovieAvailableInFavorites = true;
                 imageFav.setImageResource(R.drawable.ic_favorite);
@@ -146,6 +171,23 @@ watchlist.setOnClickListener(new View.OnClickListener() {
                 imageFav.setImageResource(R.drawable.ic_favorite_outline);
             }
         });
+
+
+    }
+
+    private void checkMoviesInWatchlist() {
+
+        movieDetailsViewModel.getMovieFromWatchlist(watchlistObject.getId()).observe(this, movies -> {
+            Log.v("sizee", "onChanged " + movies.size());
+            if (movies.size() == 1) {
+                isMovieAvailableInWatchlist = true;
+                watchlist.setImageResource(R.drawable.ic_watched);
+            } else {
+                isMovieAvailableInWatchlist = false;
+                watchlist.setImageResource(R.drawable.ic_watch);
+            }
+        });
+
 
 
     }

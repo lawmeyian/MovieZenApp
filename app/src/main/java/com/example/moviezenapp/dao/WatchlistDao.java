@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public interface WatchlistDao {
 
     @Query("SELECT EXISTS (SELECT 1 FROM Watchlist WHERE id=:itemId)")
     int isWatchlist(int itemId);
+
+    @Query("SELECT * FROM Watchlist WHERE id = :movieId")
+    LiveData<List<Watchlist>>getMoviesFromWatchlist(int movieId);
 
     @Delete
     void delete(Watchlist watchlist);

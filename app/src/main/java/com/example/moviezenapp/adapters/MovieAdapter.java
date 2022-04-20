@@ -19,7 +19,6 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Movie> movies;
     private final OnMovieClickListener onMovieClickListener;
-    WatchlistRepository watchlistRepository;
 
     public MovieAdapter(List<Movie> movies, OnMovieClickListener onMovieClickListener) {
         this.movies = movies;
@@ -35,27 +34,13 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
                 .into((((MovieViewHolder) holder).imageView));
 //        ((MovieViewHolder)holder).ratingBar.setRating((movies.get(position).getVote_average())/2);
-
-//       ((MovieViewHolder) holder).watchlist.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View view) {
-//              addToWatchlist(movies.get(holder.getAbsoluteAdapterPosition()));
-//           }
-//       });
     }
 
-    private void addToWatchlist(Movie movie) {
-        Watchlist watchlist = new Watchlist();
-        watchlist.setId(movie.getId());
-        watchlist.setTitle(movie.getTitle());
-
-        watchlistRepository.insertWatchlistItem(watchlist);
-    }
 
     @Override
     public int getItemCount() {

@@ -16,9 +16,6 @@ public class Watchlist implements Serializable {
 
     @ColumnInfo(name = "title")
     private String title;
-
-    @ColumnInfo(name = "movieId")
-    private int movieId;
     private String poster_path;
     private String release_date;
     private float vote_average;
@@ -35,9 +32,6 @@ public class Watchlist implements Serializable {
         return title;
     }
 
-    public int getMovieId() {
-        return movieId;
-    }
     public String getPoster_path() {
         return poster_path;
     }
@@ -69,9 +63,6 @@ public class Watchlist implements Serializable {
         this.title = title;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
     public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
     }
