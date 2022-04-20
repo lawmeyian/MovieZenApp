@@ -14,20 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.moviezenapp.R;
+import com.example.moviezenapp.adapters.FavoriteListAdapter;
 import com.example.moviezenapp.adapters.MovieAdapter;
+import com.example.moviezenapp.adapters.OnFavoriteClickListener;
 import com.example.moviezenapp.adapters.OnMovieClickListener;
+import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.FavoriteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements OnMovieClickListener {
+public class FavoriteFragment extends Fragment implements OnFavoriteClickListener {
 
     private FavoriteViewModel favoriteViewModel;
     RecyclerView movieList;
-    private MovieAdapter favoriteMoviesAdapter;
-    List<Movie> moviesList;
+    private FavoriteListAdapter favoriteMoviesAdapter;
+    List<FavoriteList> moviesList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,12 +39,12 @@ public class FavoriteFragment extends Fragment implements OnMovieClickListener {
         movieList = view.findViewById(R.id.recyclerView);
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
         moviesList = new ArrayList<>();
-        favoriteMoviesAdapter = new MovieAdapter(moviesList, this);
+        favoriteMoviesAdapter = new FavoriteListAdapter(moviesList, this);
 
 
         favoriteViewModel.loadFavoriteList().observe(getViewLifecycleOwner(), movies -> {
             moviesList.addAll(movies);
-            favoriteMoviesAdapter = new MovieAdapter(moviesList, this);
+            favoriteMoviesAdapter = new FavoriteListAdapter(moviesList, this);
             movieList.setAdapter(favoriteMoviesAdapter);
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
@@ -56,7 +59,7 @@ public class FavoriteFragment extends Fragment implements OnMovieClickListener {
 
     private void ConfigureRecyclerView() {
 
-        favoriteMoviesAdapter = new MovieAdapter(moviesList, this);
+        favoriteMoviesAdapter = new FavoriteListAdapter(moviesList, this);
         movieList.setAdapter(favoriteMoviesAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
@@ -72,7 +75,8 @@ public class FavoriteFragment extends Fragment implements OnMovieClickListener {
         Class destination = MovieDetails.class;
 
         Intent intent = new Intent(context, destination);
-        intent.putExtra("movie", favoriteMoviesAdapter.getSelectedMovie(position));
+        intent.putExtra("favoriteList", favoriteMoviesAdapter.getSelectedMovie(position));
         startActivity(intent);
     }
+
 }

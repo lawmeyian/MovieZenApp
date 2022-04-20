@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.WatchlistDataSource;
 import com.example.moviezenapp.database.MoviesDb;
+import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
 import com.example.moviezenapp.repositories.WatchlistRepository;
@@ -32,6 +33,7 @@ public class MovieDetails extends AppCompatActivity {
     MovieDetailsViewModel movieDetailsViewModel;
     ImageView imageFav;
 Watchlist watchlistObject;
+FavoriteList favoriteListObject;
     private Boolean isMovieAvailableInFavorites = false;
     private Boolean isMovieAvailableInWatchlist = false;
     ImageView watchlist;
@@ -46,8 +48,9 @@ Watchlist watchlistObject;
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         imageFav = findViewById(R.id.img_favorite);
         watchlistObject = new Watchlist();
+        favoriteListObject = new FavoriteList();
         watchlist = findViewById(R.id.img_watchlist);
-        watchlistButton = findViewById(R.id.addToWatchlist);
+//        watchlistButton = findViewById(R.id.addToWatchlist);
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.textView_title_details);
         descDetails = findViewById(R.id.textView_detail);
@@ -57,13 +60,13 @@ Watchlist watchlistObject;
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
 
-        watchlistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addToWatchlist(movie);
-                Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        watchlistButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addToWatchlist(movie);
+//                Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 watchlist.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -87,12 +90,12 @@ watchlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isMovieAvailableInFavorites) {
-                    movieDetailsViewModel.removeFromFavorites(movie);
+                    movieDetailsViewModel.removeFromFavorites(favoriteListObject);
                     isMovieAvailableInFavorites = false;
                     imageFav.setImageResource(R.drawable.ic_favorite_outline);
                     Toast.makeText(getApplicationContext(), "Removed from fav: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
                 } else {
-                    movieDetailsViewModel.addMovie(movie);
+                 addToFavoriteList(movie);
                     isMovieAvailableInFavorites = true;
                     imageFav.setImageResource(R.drawable.ic_favorite);
 
@@ -106,10 +109,16 @@ watchlist.setOnClickListener(new View.OnClickListener() {
         if(getIntent().hasExtra("movie")) {
             GetDataFromIntent();
             imageFav.setVisibility(View.VISIBLE);
-            watchlistButton.setVisibility(View.VISIBLE);
+//            watchlistButton.setVisibility(View.VISIBLE);
+            watchlist.setVisibility(View.VISIBLE);
         } else if (getIntent().hasExtra("watchlist")){
             getData();
             watchlist.setVisibility(View.VISIBLE);
+        }
+        else if(getIntent().hasExtra("favoriteList"))
+        {
+            getFavoriteData();
+            imageFav.setVisibility(View.VISIBLE);
         }
 
     }
@@ -126,6 +135,20 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
       movieDetailsViewModel.insertWatchlistItem(watchlistObject);
     }
+    private void addToFavoriteList(Movie movie) {
+        favoriteListObject.setId(movie.getId());
+        favoriteListObject.setTitle(movie.getTitle());
+        favoriteListObject.setPoster_path(movie.getPoster_path());
+        favoriteListObject.setOverview(movie.getOverview());
+        favoriteListObject.setOriginal_language(movie.getOriginal_language());
+        favoriteListObject.setRelease_date(movie.getRelease_date());
+        favoriteListObject.setVote_average(movie.getVote_average());
+        favoriteListObject.setVote_count(movie.getVote_count());
+//     watchlistObject.setPoster_path("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path());
+        movieDetailsViewModel.insertFavoriteListItem(favoriteListObject);
+    }
+
+
 
     private void getData()
     {
@@ -140,12 +163,31 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
         vote_average.setText(Float.toString(watchlistObject.getVote_average()));
         vote_count.setText(Float.toString(watchlistObject.getVote_count()));
+        movieDetailsViewModel.insertWatchlistItem(watchlistObject);
+
+    }
+    private void getFavoriteData()
+    {
+        favoriteListObject = (FavoriteList) getIntent().getSerializableExtra("favoriteList");
+//        checkMoviesInWatchlist();
+        checkMoviesInFavoriteList();
+
+        titleDetails.setText(favoriteListObject.getTitle());
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + favoriteListObject.getPoster_path()).into(imageViewDetails);
+        descDetails.setText(favoriteListObject.getOverview());
+        release_date.setText(favoriteListObject.getRelease_date());
+        language.setText(favoriteListObject.getOriginal_language());
+
+        vote_average.setText(Float.toString(favoriteListObject.getVote_average()));
+        vote_count.setText(Float.toString(favoriteListObject.getVote_count()));
+        movieDetailsViewModel.insertFavoriteListItem(favoriteListObject);
     }
     private void GetDataFromIntent() {
 
 
         movie = (Movie) getIntent().getSerializableExtra("movie");
-        checkMoviesInFavoriteList();
+//     checkMoviesInFavoriteListInMovies();
+//     checkMoviesInWatchlistInMovies();
 
         titleDetails.setText(movie.getTitle());
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path()).into(imageViewDetails);
@@ -161,6 +203,22 @@ watchlist.setOnClickListener(new View.OnClickListener() {
     }
 
     private void checkMoviesInFavoriteList() {
+        movieDetailsViewModel.getMovieFromFavorites(favoriteListObject.getId()).observe(this, movies -> {
+            Log.v("sizefav", "onChanged " + movies.size());
+            if (movies.size() == 1) {
+                isMovieAvailableInFavorites = true;
+                imageFav.setImageResource(R.drawable.ic_favorite);
+            } else {
+                isMovieAvailableInFavorites = false;
+                imageFav.setImageResource(R.drawable.ic_favorite_outline);
+            }
+        });
+
+    }
+
+    private void checkMoviesInFavoriteListInMovies() {
+
+
         movieDetailsViewModel.getMovieFromFavorites(movie.getId()).observe(this, movies -> {
             Log.v("sizefav", "onChanged " + movies.size());
             if (movies.size() == 1) {
@@ -191,4 +249,24 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
 
     }
+
+    private void checkMoviesInWatchlistInMovies() {
+
+        movieDetailsViewModel.getMovieFromWatchlist(movie.getId()).observe(this, movies -> {
+            Log.v("sizee", "onChanged " + movies.size());
+            if (movies.size() == 1) {
+                isMovieAvailableInWatchlist = true;
+                watchlist.setImageResource(R.drawable.ic_watched);
+            } else {
+                isMovieAvailableInWatchlist = false;
+                watchlist.setImageResource(R.drawable.ic_watch);
+            }
+        });
+
+
+
+    }
+
+
+
 }

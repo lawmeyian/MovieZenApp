@@ -6,9 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.moviezenapp.dao.MovieDao;
+import com.example.moviezenapp.dao.FavoriteDao;
 import com.example.moviezenapp.dao.WatchlistDao;
 import com.example.moviezenapp.database.MoviesDb;
+import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
 
@@ -16,41 +17,38 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import io.reactivex.rxjava3.core.Flowable;
-
 public class MovieDetailsViewModel extends AndroidViewModel {
     private MoviesDb moviesDb;
-    private final LiveData<List<Movie>> allMovies;
     private final LiveData<List<Watchlist>> allWatchlistMovies;
+    private final LiveData<List<FavoriteList>> allFavoriteMovies;
     private final ExecutorService executorService;
-    private final MovieDao movieDao;
     private final WatchlistDao watchlistDao;
+    private final FavoriteDao favoriteDao;
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
         moviesDb = MoviesDb.getInstance(application);
-        movieDao = moviesDb.movieDao();
-        allMovies = movieDao.getAll();
+
         watchlistDao = moviesDb.watchlistDao();
+        favoriteDao = moviesDb.favoriteDao();
         allWatchlistMovies = watchlistDao.getAll();
+        allFavoriteMovies = favoriteDao.getAll();
         executorService = Executors.newFixedThreadPool(2);
     }
 
-    public void addMovie(Movie movie) {
-        executorService.execute(() -> moviesDb.movieDao().add(movie));
-    }
+//    public void addMovie(Movie movie) {
+//        executorService.execute(() -> moviesDb.movieDao().add(movie));
+//    }
 
 
 
-    public LiveData<List<Movie>> getAllMovies() {
-        return allMovies;
-    }
+
     public LiveData<List<Watchlist>> getAllWatchlistMovies() {
         return allWatchlistMovies;
     }
 
-    public LiveData<List<Movie>> getMovieFromFavorites(int movieId) {
-        return moviesDb.movieDao().getMoviesFromFavorites(movieId);
+    public LiveData<List<FavoriteList>> getMovieFromFavorites(int movieId) {
+        return moviesDb.favoriteDao().getMoviesFromFavoriteList(movieId);
     }
     public LiveData<List<Watchlist>> getMovieFromWatchlist(int movieId) {
         return moviesDb.watchlistDao().getMoviesFromWatchlist(movieId);
@@ -58,9 +56,9 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
 
 
-    public void removeFromFavorites(Movie movie)
+    public void removeFromFavorites(FavoriteList movie)
     {
-        executorService.execute(() -> moviesDb.movieDao().delete(movie));
+        executorService.execute(() -> moviesDb.favoriteDao().delete(movie));
     }
 
     public void removeFromWatchlist(Watchlist movie)
@@ -70,5 +68,9 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     public void insertWatchlistItem(Watchlist... watchlists) {
         executorService.execute(() -> moviesDb.watchlistDao().insertWatchlistItem(watchlists));
+    }
+    public void insertFavoriteListItem(FavoriteList... favoriteLists) {
+
+        executorService.execute(() -> moviesDb.favoriteDao().insertFavoriteListItem(favoriteLists));
     }
 }

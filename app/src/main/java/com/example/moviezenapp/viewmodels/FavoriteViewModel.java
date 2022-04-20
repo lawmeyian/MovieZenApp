@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.moviezenapp.database.MoviesDb;
+import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class FavoriteViewModel extends AndroidViewModel {
         moviesDb = MoviesDb.getInstance(application);
     }
 
-    public LiveData<List<Movie>> loadFavoriteList() {
-        return moviesDb.movieDao().getAll();
+    public LiveData<List<FavoriteList>> loadFavoriteList() {
+        return moviesDb.favoriteDao().getAll();
     }
 
 }

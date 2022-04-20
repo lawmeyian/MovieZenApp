@@ -60,6 +60,13 @@ public class WatchlistFragment extends Fragment implements OnMovieClickListener 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+//        moviesList.clear();
+
+    }
+
 
     @Override
     public void onMovieClick(int position) {
@@ -71,4 +78,6 @@ public class WatchlistFragment extends Fragment implements OnMovieClickListener 
         startActivity(intent);
 
     }
+
+
 }
