@@ -11,11 +11,12 @@
         android:title="Lists" />
     <item
         android:id="@+id/watchlistFragment"
-        android:icon="@drawable/ic_favorite"
-        android:title="Favorites" />
-    <item
-        android:id="@+id/favFragment"
         android:icon="@drawable/ic_watched"
         android:title="Watchlist" />
+    <item
+        android:id="@+id/favFragment"
+        android:icon="@drawable/ic_favorite"
+        android:title="Favorites"
+        />
 
 </menu>

@@ -11,7 +11,7 @@ import com.example.moviezenapp.dao.WatchlistDao;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
 
-@Database(entities = {Movie.class, Watchlist.class}, version = 10)
+@Database(entities = {Movie.class, Watchlist.class}, version = 14)
 public abstract class MoviesDb extends RoomDatabase {
     private static MoviesDb instance;
 

@@ -78,16 +78,44 @@ watchlist.setOnClickListener(new View.OnClickListener() {
                 }
             }
         });
-        imageFav.setVisibility(View.VISIBLE);
-        GetDataFromIntent();
+
+
+
+        if(getIntent().hasExtra("movie")) {
+            GetDataFromIntent();
+            imageFav.setVisibility(View.VISIBLE);
+        } else if (getIntent().hasExtra("watchlist")){
+            getData();
+        }
+
     }
     private void addToWatchlist(Movie movie) {
         watchlistObject.setId(movie.getId());
         watchlistObject.setTitle(movie.getTitle());
+        watchlistObject.setPoster_path(movie.getPoster_path());
+        watchlistObject.setOverview(movie.getOverview());
+        watchlistObject.setOriginal_language(movie.getOriginal_language());
+        watchlistObject.setRelease_date(movie.getRelease_date());
+        watchlistObject.setVote_average(movie.getVote_average());
+        watchlistObject.setVote_count(movie.getVote_count());
+//     watchlistObject.setPoster_path("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path());
 
       movieDetailsViewModel.insertWatchlistItem(watchlistObject);
     }
 
+    private void getData()
+    {
+        watchlistObject = (Watchlist) getIntent().getSerializableExtra("watchlist");
+
+        titleDetails.setText(watchlistObject.getTitle());
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + watchlistObject.getPoster_path()).into(imageViewDetails);
+        descDetails.setText(watchlistObject.getOverview());
+        release_date.setText(watchlistObject.getRelease_date());
+        language.setText(watchlistObject.getOriginal_language());
+
+        vote_average.setText(Float.toString(watchlistObject.getVote_average()));
+        vote_count.setText(Float.toString(watchlistObject.getVote_count()));
+    }
     private void GetDataFromIntent() {
 
 
@@ -102,6 +130,7 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
         vote_average.setText(Float.toString(movie.getVote_average()));
         vote_count.setText(Float.toString(movie.getVote_count()));
+
 
 
     }

@@ -5,8 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Watchlist")
-public class Watchlist {
+public class Watchlist implements Serializable {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -17,6 +19,12 @@ public class Watchlist {
 
     @ColumnInfo(name = "movieId")
     private int movieId;
+    private String poster_path;
+    private String release_date;
+    private float vote_average;
+    private float vote_count;
+    private String overview;
+    private String original_language;
 
     @NonNull
     public int getId() {
@@ -30,6 +38,28 @@ public class Watchlist {
     public int getMovieId() {
         return movieId;
     }
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+    public float getVote_average() {
+        return vote_average;
+    }
+
+    public float getVote_count() {
+        return vote_count;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getOriginal_language() {
+        return original_language;
+    }
 
     public void setId(@NonNull int id) {
         this.id = id;
@@ -41,5 +71,27 @@ public class Watchlist {
 
     public void setMovieId(int movieId) {
         this.movieId = movieId;
+    }
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+    public void setVote_average(float vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setVote_count(float vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
     }
 }
