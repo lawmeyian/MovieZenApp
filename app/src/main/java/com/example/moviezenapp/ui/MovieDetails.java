@@ -5,14 +5,22 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
+import com.example.moviezenapp.WatchlistDataSource;
+import com.example.moviezenapp.database.MoviesDb;
 import com.example.moviezenapp.models.Movie;
+import com.example.moviezenapp.models.Watchlist;
+import com.example.moviezenapp.repositories.WatchlistRepository;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDetails extends AppCompatActivity {
 
@@ -22,10 +30,11 @@ public class MovieDetails extends AppCompatActivity {
     Movie movie;
     MovieDetailsViewModel movieDetailsViewModel;
     ImageView imageFav;
-
+Watchlist watchlistObject;
     private Boolean isMovieAvailableInFavorites = false;
-
+    Button watchlist;
 //    private RatingBar ratingBarDetails;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +42,8 @@ public class MovieDetails extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         imageFav = findViewById(R.id.img_favorite);
-
+        watchlistObject = new Watchlist();
+        watchlist = findViewById(R.id.addToWatchlist);
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.textView_title_details);
         descDetails = findViewById(R.id.textView_detail);
@@ -43,6 +53,13 @@ public class MovieDetails extends AppCompatActivity {
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
 
+watchlist.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        addToWatchlist(movie);
+        Toast.makeText(getApplicationContext(), "added: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+});
 
         imageFav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +81,12 @@ public class MovieDetails extends AppCompatActivity {
         imageFav.setVisibility(View.VISIBLE);
         GetDataFromIntent();
     }
+    private void addToWatchlist(Movie movie) {
+        watchlistObject.setId(movie.getId());
+        watchlistObject.setTitle(movie.getTitle());
 
+      movieDetailsViewModel.insertWatchlistItem(watchlistObject);
+    }
 
     private void GetDataFromIntent() {
 

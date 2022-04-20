@@ -20,6 +20,11 @@
         android:name="com.example.moviezenapp.ui.FavoriteFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/watchlistFragment2"
+        android:name="com.example.moviezenapp.WatchlistFragment"
+        android:label="Watchlist"
+        tools:layout="@layout/fragment_watchlist" />
 
 
 </navigation>

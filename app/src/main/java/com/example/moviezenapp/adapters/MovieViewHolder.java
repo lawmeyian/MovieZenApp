@@ -1,6 +1,7 @@
 package com.example.moviezenapp.adapters;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
     //Widgets
     ImageView imageView;
     TextView movie_title, desc, release_date, language, vote_count, vote_average;
+    Button watchlist;
 
     // Click listener
     OnMovieClickListener onMovieClickListener;
@@ -33,7 +35,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnC
         vote_count = itemView.findViewById(R.id.vote_count);
         vote_average = itemView.findViewById(R.id.vote_average);
 //        ratingBar = itemView.findViewById(R.id.ratingBar_details);
-
+        watchlist = itemView.findViewById(R.id.addToWatchlist);
 
         itemView.setOnClickListener(this);
     }
