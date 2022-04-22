@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -44,9 +45,16 @@ public class WatchlistFragment extends Fragment implements OnMovieClickListener 
         View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
         movieList = view.findViewById(R.id.recyclerView);
         watchlistViewModel = new ViewModelProvider(this).get(WatchlistViewModel.class);
-        moviesList = new ArrayList<>();
+
         watchlistMoviesAdapter = new WatchlistAdapter(moviesList, this);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        moviesList = new ArrayList<>();
         watchlistViewModel.loadWatchList().observe(getViewLifecycleOwner(), movies -> {
             moviesList.addAll(movies);
             watchlistMoviesAdapter = new WatchlistAdapter(moviesList, this);
@@ -57,16 +65,10 @@ public class WatchlistFragment extends Fragment implements OnMovieClickListener 
             movieList.setLayoutManager(gridLayoutManager);
             movieList.setHasFixedSize(true);
         });
-        return view;
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        moviesList.clear();
+//        watchlistMoviesAdapter.notifyDataSetChanged();
 
     }
-
 
     @Override
     public void onMovieClick(int position) {
@@ -76,6 +78,7 @@ public class WatchlistFragment extends Fragment implements OnMovieClickListener 
         Intent intent = new Intent(context, destination);
         intent.putExtra("watchlist", watchlistMoviesAdapter.getSelectedMovie(position));
         startActivity(intent);
+
 
     }
 

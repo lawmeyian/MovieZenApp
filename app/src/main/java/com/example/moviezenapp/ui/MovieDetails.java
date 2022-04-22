@@ -93,7 +93,7 @@ watchlist.setOnClickListener(new View.OnClickListener() {
                     movieDetailsViewModel.removeFromFavorites(favoriteListObject);
                     isMovieAvailableInFavorites = false;
                     imageFav.setImageResource(R.drawable.ic_favorite_outline);
-                    Toast.makeText(getApplicationContext(), "Removed from fav: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Removed from fav: " + favoriteListObject.getTitle(), Toast.LENGTH_SHORT).show();
                 } else {
                  addToFavoriteList(movie);
                     isMovieAvailableInFavorites = true;
@@ -186,8 +186,8 @@ watchlist.setOnClickListener(new View.OnClickListener() {
 
 
         movie = (Movie) getIntent().getSerializableExtra("movie");
-//     checkMoviesInFavoriteListInMovies();
-//     checkMoviesInWatchlistInMovies();
+     checkMoviesInFavoriteListInMovies();
+     checkMoviesInWatchlistInMovies();
 
         titleDetails.setText(movie.getTitle());
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path()).into(imageViewDetails);

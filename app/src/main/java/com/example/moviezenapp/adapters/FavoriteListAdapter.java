@@ -31,12 +31,15 @@ public class FavoriteListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_list_item, parent,
                 false);
         return new FavoriteListViewHolder(view, onMovieClickListener);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + favoriteLists.get(position).getPoster_path())
                 .into((((FavoriteListViewHolder) holder).imageView));
+
+        holder.setIsRecyclable(false);
     }
 
     @Override
