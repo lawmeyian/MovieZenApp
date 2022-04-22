@@ -13,16 +13,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.WatchlistDataSource;
-import com.example.moviezenapp.database.MoviesDb;
 import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
-import com.example.moviezenapp.repositories.WatchlistRepository;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MovieDetails extends AppCompatActivity {
 

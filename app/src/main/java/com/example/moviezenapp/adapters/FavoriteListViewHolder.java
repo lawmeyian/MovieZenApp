@@ -18,10 +18,10 @@ public class FavoriteListViewHolder extends RecyclerView.ViewHolder implements V
 
 
     // Click listener
-    OnFavoriteClickListener onMovieClickListener;
+    OnMovieClickListener onMovieClickListener;
     FavoriteList list;
 
-    public FavoriteListViewHolder(@NonNull View itemView, OnFavoriteClickListener onMovieClickListener) {
+    public FavoriteListViewHolder(@NonNull View itemView, OnMovieClickListener onMovieClickListener) {
         super(itemView);
         this.onMovieClickListener = onMovieClickListener;
         imageView = itemView.findViewById(R.id.movie_image);

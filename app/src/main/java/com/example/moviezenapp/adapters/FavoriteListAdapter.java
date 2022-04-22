@@ -18,9 +18,9 @@ import java.util.List;
 public class FavoriteListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<FavoriteList> favoriteLists;
-    private final OnFavoriteClickListener onMovieClickListener;
+    private final OnMovieClickListener onMovieClickListener;
 
-    public FavoriteListAdapter(List<FavoriteList> favoriteLists, OnFavoriteClickListener onMovieClickListener) {
+    public FavoriteListAdapter(List<FavoriteList> favoriteLists, OnMovieClickListener onMovieClickListener) {
         this.favoriteLists = favoriteLists;
         this.onMovieClickListener = onMovieClickListener;
     }

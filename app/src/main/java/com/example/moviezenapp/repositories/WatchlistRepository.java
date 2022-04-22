@@ -1,46 +1,58 @@
 package com.example.moviezenapp.repositories;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 
-import com.example.moviezenapp.IWatchlistDataSource;
+import com.example.moviezenapp.dao.WatchlistDao;
+import com.example.moviezenapp.database.MoviesDb;
 import com.example.moviezenapp.models.Watchlist;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class WatchlistRepository implements IWatchlistDataSource {
+public class WatchlistRepository {
 
-    private IWatchlistDataSource watchlistDataSource;
-
-    public WatchlistRepository(IWatchlistDataSource watchlistDataSource) {
-        this.watchlistDataSource = watchlistDataSource;
-    }
-
+    private WatchlistDao watchlistDao;
+    private final ExecutorService executorService;
     private static WatchlistRepository instance;
 
-    public static WatchlistRepository getInstance(IWatchlistDataSource watchlistDataSource) {
+    public WatchlistRepository(Application application) {
+        MoviesDb database = MoviesDb.getInstance(application);
+        watchlistDao = database.watchlistDao();
+        executorService = Executors.newFixedThreadPool(2);
+
+    }
+
+
+    public static WatchlistRepository getInstance(Application application) {
         if (instance == null) {
-            instance = new WatchlistRepository(watchlistDataSource);
+            instance = new WatchlistRepository(application);
         }
         return instance;
     }
 
-    @Override
+
     public LiveData<List<Watchlist>> getAll() {
-        return watchlistDataSource.getAll();
+        return watchlistDao.getAll();
     }
 
-    @Override
+
     public int isWatchlist(int itemId) {
-        return watchlistDataSource.isWatchlist(itemId);
+        return watchlistDao.isWatchlist(itemId);
     }
+public     LiveData<List<Watchlist>>getMoviesFromWatchlist(int movieId)
+{
+    return watchlistDao.getMoviesFromWatchlist(movieId);
+}
 
-    @Override
     public void delete(Watchlist watchlist) {
-        watchlistDataSource.delete(watchlist);
+        executorService.execute(() -> watchlistDao.delete(watchlist));
     }
 
-    @Override
+
     public void insertWatchlistItem(Watchlist... watchlists) {
-        watchlistDataSource.insertWatchlistItem(watchlists);
+        executorService.execute(() -> watchlistDao.insertWatchlistItem(watchlists));
     }
 }

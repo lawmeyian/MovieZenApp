@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.MovieAdapter;
 import com.example.moviezenapp.adapters.OnMovieClickListener;
 import com.example.moviezenapp.adapters.WatchlistAdapter;

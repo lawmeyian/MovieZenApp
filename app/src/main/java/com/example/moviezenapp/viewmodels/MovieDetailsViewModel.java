@@ -12,28 +12,22 @@ import com.example.moviezenapp.database.MoviesDb;
 import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.Watchlist;
+import com.example.moviezenapp.repositories.FavoriteListRepository;
+import com.example.moviezenapp.repositories.WatchlistRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
-    private MoviesDb moviesDb;
-    private final LiveData<List<Watchlist>> allWatchlistMovies;
-    private final LiveData<List<FavoriteList>> allFavoriteMovies;
-    private final ExecutorService executorService;
-    private final WatchlistDao watchlistDao;
-    private final FavoriteDao favoriteDao;
+    private final FavoriteListRepository favoriteListRepository;
+    private final WatchlistRepository watchlistRepository;
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
-        moviesDb = MoviesDb.getInstance(application);
+        favoriteListRepository = FavoriteListRepository.getInstance(application);
+        watchlistRepository = WatchlistRepository.getInstance(application);
 
-        watchlistDao = moviesDb.watchlistDao();
-        favoriteDao = moviesDb.favoriteDao();
-        allWatchlistMovies = watchlistDao.getAll();
-        allFavoriteMovies = favoriteDao.getAll();
-        executorService = Executors.newFixedThreadPool(2);
     }
 
 //    public void addMovie(Movie movie) {
@@ -41,36 +35,33 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 //    }
 
 
-
-
     public LiveData<List<Watchlist>> getAllWatchlistMovies() {
-        return allWatchlistMovies;
+        return watchlistRepository.getAll();
     }
 
     public LiveData<List<FavoriteList>> getMovieFromFavorites(int movieId) {
-        return moviesDb.favoriteDao().getMoviesFromFavoriteList(movieId);
+        return favoriteListRepository.getMoviesFromFavoriteList(movieId);
     }
+
     public LiveData<List<Watchlist>> getMovieFromWatchlist(int movieId) {
-        return moviesDb.watchlistDao().getMoviesFromWatchlist(movieId);
+        return watchlistRepository.getMoviesFromWatchlist(movieId);
     }
 
 
-
-    public void removeFromFavorites(FavoriteList movie)
-    {
-        executorService.execute(() -> moviesDb.favoriteDao().delete(movie));
+    public void removeFromFavorites(FavoriteList movie) {
+        favoriteListRepository.delete(movie);
     }
 
-    public void removeFromWatchlist(Watchlist movie)
-    {
-        executorService.execute(() -> moviesDb.watchlistDao().delete(movie));
+    public void removeFromWatchlist(Watchlist movie) {
+        watchlistRepository.delete(movie);
     }
 
     public void insertWatchlistItem(Watchlist... watchlists) {
-        executorService.execute(() -> moviesDb.watchlistDao().insertWatchlistItem(watchlists));
+        watchlistRepository.insertWatchlistItem(watchlists);
     }
+
     public void insertFavoriteListItem(FavoriteList... favoriteLists) {
 
-        executorService.execute(() -> moviesDb.favoriteDao().insertFavoriteListItem(favoriteLists));
+        favoriteListRepository.insertFavoriteListItem(favoriteLists);
     }
 }

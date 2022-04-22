@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/watchlistFragment"
-        android:name="com.example.moviezenapp.WatchlistFragment"
+        android:name="com.example.moviezenapp.ui.WatchlistFragment"
         android:label="Watchlist"
         tools:layout="@layout/fragment_watchlist" />
 

@@ -15,17 +15,14 @@ import android.view.ViewGroup;
 
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.FavoriteListAdapter;
-import com.example.moviezenapp.adapters.MovieAdapter;
-import com.example.moviezenapp.adapters.OnFavoriteClickListener;
 import com.example.moviezenapp.adapters.OnMovieClickListener;
 import com.example.moviezenapp.models.FavoriteList;
-import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.FavoriteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteFragment extends Fragment implements OnFavoriteClickListener {
+public class FavoriteFragment extends Fragment implements OnMovieClickListener {
 
     private FavoriteViewModel favoriteViewModel;
     RecyclerView movieList;
