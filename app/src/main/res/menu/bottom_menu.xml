@@ -9,4 +9,8 @@
         android:id="@+id/listsFragment"
         android:icon="@drawable/ic_list"
         android:title="Lists" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_list"
+        android:title="Profile" />
 </menu>

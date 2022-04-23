@@ -15,6 +15,11 @@
         android:name="com.example.moviezenapp.ui.ListsFragment"
         android:label="Lists"
         tools:layout="@layout/fragment_lists" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.moviezenapp.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
 
 </navigation>
