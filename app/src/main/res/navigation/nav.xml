@@ -14,12 +14,22 @@
         android:id="@+id/listsFragment"
         android:name="com.example.moviezenapp.ui.ListsFragment"
         android:label="Lists"
-        tools:layout="@layout/fragment_lists" />
+        tools:layout="@layout/fragment_lists">
+        <action
+            android:id="@+id/navigate_to_selected_list"
+            app:destination="@+id/selected_list_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.moviezenapp.ProfileFragment"
+        android:name="com.example.moviezenapp.ui.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/selected_list_fragment"
+        android:name="com.example.moviezenapp.ui.SelectedListFragment"
+        android:label="fragment_selected_list"
+        tools:layout="@layout/fragment_selected_list">
+    </fragment>
 
 
 </navigation>

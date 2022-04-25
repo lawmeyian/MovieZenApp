@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.moviezenapp.R;
 import com.example.moviezenapp.viewmodels.SignInViewModel;
 import com.firebase.ui.auth.AuthUI;
 
@@ -55,7 +56,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.drawable.ic_movies)
+                .setLogo(R.drawable.app_logo)
                 .build();
 
         activityResultLauncher.launch(signInIntent);

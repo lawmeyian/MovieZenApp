@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="40dp"
-    tools:context=".SignInActivity">
+    tools:context=".ui.SignInActivity">
 
 
     <Button
@@ -15,10 +15,10 @@
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:background="#fff"
+        android:onClick="signIn"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
-        android:text="Sign In with Google"
-        android:onClick="signIn"
+        android:text="Sign"
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

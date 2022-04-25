@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.moviezenapp.R;
+import com.example.moviezenapp.ui.SignInActivity;
 import com.example.moviezenapp.viewmodels.ProfileViewModel;
 import com.google.firebase.auth.UserInfo;
 
