@@ -100,6 +100,14 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             imageFav = itemView.findViewById(R.id.addToFavorite);
             imageWatched = itemView.findViewById(R.id.addToWatchlist);
 
+            if (id.equals("favorite")) {
+                imageFav.setVisibility(View.INVISIBLE);
+            }
+
+            if (id.equals("watched")) {
+                imageWatched.setVisibility(View.INVISIBLE);
+            }
+
             itemView.setOnClickListener(this);
         }
 

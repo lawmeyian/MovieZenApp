@@ -47,8 +47,6 @@ public class MovieDetails extends AppCompatActivity {
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
         save = findViewById(R.id.save);
-        favorite = findViewById(R.id.favorite);
-        watched = findViewById(R.id.watched);
         GetDataFromIntent();
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,44 +57,8 @@ public class MovieDetails extends AppCompatActivity {
             }
         });
 
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.saveMovie("favorite", movieModel);
-                Toast.makeText(getApplicationContext(), movieModel.getTitle() + " added to fav", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
-
-        watched.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMovieAvailableInWatchedList) {
-                    viewModel.remove("watched", movieModel.getId());
-                    isMovieAvailableInWatchedList = false;
-                    watched.setImageResource(R.drawable.ic_watch);
-                    Toast.makeText(getApplicationContext(), "Removed from watched list: " + movieModel.getTitle(), Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.saveMovie("watched", movieModel);
-                    isMovieAvailableInWatchedList = true;
-                    watched.setImageResource(R.drawable.ic_watchlist);
-                    Toast.makeText(getApplicationContext(), movieModel.getTitle() + " added to watched", Toast.LENGTH_SHORT).show();
-//                    finish();
-                }
-            }
-        });
-
-
     }
 
-    private void checkMoviesInWatchedList() {
-
-        viewModel.getAllListsFromDB().observe(this, lists -> {
-
-        });
-
-
-    }
 
     private void GetDataFromIntent() {
         if (getIntent().hasExtra("movie")) {
@@ -114,8 +76,6 @@ public class MovieDetails extends AppCompatActivity {
             Log.v("Tag", "Avg############# " + movieModel.getVote_average());
             Log.v("Tag", "Lang############# " + movieModel.getOriginal_language());
             Log.v("Tag", "count############# " + movieModel.getVote_count());
-//            ratingBarDetails.setRating((movieModel.getVote_average())/2);
-//            Log.v("Tag", "Overview############# " + movieModel.getMovie_overview());
         }
 
     }
