@@ -102,4 +102,8 @@ public class MovieLiveData extends LiveData<Movie> {
         return movieList;
     }
 
+    public void editMoviePersonalRating(String listId, String movieId, double rating) {
+        myRef.child(listId).child(movieId).child("personalRating").setValue(rating);
+    }
+
 }

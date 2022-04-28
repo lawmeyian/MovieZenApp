@@ -1,9 +1,14 @@
 package com.example.moviezenapp.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,32 +55,87 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog);
+
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        Button submit = dialog.findViewById(R.id.doneRating);
+        EditText rating = dialog.findViewById(R.id.ratingEditText);
+
+
         holder.name.setText(list.get(position).getTitle());
         holder.rating.setText("TMDB Rating: " + list.get(position).getVote_average());
+
+        if (list.get(position).getPersonalRating() == 0.0) {
+            holder.personalRating.setText("");
+        } else {
+            holder.personalRating.setText(String.valueOf(list.get(position).getPersonalRating()));
+        }
 
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
                 .into(holder.poster);
 
         holder.imageFav.setOnClickListener(v -> {
             toFavorite = list.get(position);
-            viewModel.saveMovie("favorite", toFavorite);
-            viewModel.remove(id, toFavorite.getId());
-            Toast.makeText(context, toFavorite.getTitle() + " added to fav", Toast.LENGTH_SHORT).show();
+            dialog.show();
 
-            list.remove(position);
+            submit.setOnClickListener(v1 -> {
+                if (rating.getText().toString().equals("")) {
+                    Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
+                } else {
+                    double value = Double.parseDouble(rating.getText().toString());
+                    toFavorite.setPersonalRating(value);
+                    dialog.dismiss();
+                    rating.setText("");
+                    viewModel.saveMovie("favorite", toFavorite);
+                    list.remove(position);
+                    viewModel.remove(id, toFavorite.getId());
+                }
+            });
 
             this.notifyItemRemoved(position);
         });
 
         holder.imageWatched.setOnClickListener(v -> {
-            watchedMovie = list.get(position);
-            viewModel.saveMovie("watched", watchedMovie);
-            viewModel.remove(id, watchedMovie.getId());
-            Toast.makeText(context, watchedMovie.getTitle() + " added to watched", Toast.LENGTH_SHORT).show();
 
-            list.remove(position);
+            watchedMovie = list.get(position);
+            dialog.show();
+
+            submit.setOnClickListener(v1 -> {
+                if (rating.getText().toString().equals("")) {
+                    Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
+                } else {
+                    double value = Double.parseDouble(rating.getText().toString());
+                    watchedMovie.setPersonalRating(value);
+                    dialog.dismiss();
+                    rating.setText("");
+                    viewModel.saveMovie("watched", watchedMovie);
+                    list.remove(position);
+                    viewModel.remove(id, watchedMovie.getId());
+                }
+            });
 
             this.notifyItemRemoved(position);
+        });
+
+        holder.editRating.setOnClickListener(v -> {
+            dialog.show();
+
+            submit.setOnClickListener(v1 -> {
+                if (rating.getText().toString().equals("")) {
+                    Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
+                } else {
+                    double value = Double.parseDouble(rating.getText().toString());
+                    dialog.dismiss();
+                    rating.setText("");
+                    list.get(position).setPersonalRating(value);
+                    viewModel.editMoviePersonalRating(id, list.get(position).getId(), value);
+                    notifyDataSetChanged();
+                }
+            });
         });
 
     }
@@ -91,6 +151,8 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         ImageView poster;
         ImageView imageFav;
         ImageView imageWatched;
+        TextView personalRating;
+        ImageView editRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,13 +161,21 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             poster = itemView.findViewById(R.id.imageSelectedListItem);
             imageFav = itemView.findViewById(R.id.addToFavorite);
             imageWatched = itemView.findViewById(R.id.addToWatchlist);
+            personalRating = itemView.findViewById(R.id.personalRatingSelectedList);
+            editRating = itemView.findViewById(R.id.editRating);
 
             if (id.equals("favorite")) {
                 imageFav.setVisibility(View.INVISIBLE);
+                imageWatched.setVisibility(View.INVISIBLE);
             }
 
             if (id.equals("watched")) {
                 imageWatched.setVisibility(View.INVISIBLE);
+                imageFav.setVisibility(View.INVISIBLE);
+            }
+
+            if (id.equals("saved")) {
+                editRating.setVisibility(View.GONE);
             }
 
             itemView.setOnClickListener(this);
@@ -113,7 +183,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
         @Override
         public void onClick(View v) {
-            mOnListItemClickListener.onListItemClick(getAdapterPosition());
+            mOnListItemClickListener.onListItemClick(getBindingAdapterPosition());
         }
     }
 }

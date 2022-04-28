@@ -37,4 +37,8 @@ public class MoviesViewModel extends ViewModel {
         return repository.getAllListsFromDB();
     }
 
+    public void editMoviePersonalRating(String listId, String movieId, double rating) {
+        repository.editMoviePersonalRating(listId, movieId, rating);
+    }
+
 }
