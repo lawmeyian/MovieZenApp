@@ -1,54 +1,68 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
+import com.example.moviezenapp.R;
+import com.example.moviezenapp.ui.SignInActivity;
+import com.example.moviezenapp.viewmodels.MainActivityViewModel;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     AppBarConfiguration appBarConfiguration;
     private MovieViewModel movieViewModel;
     boolean isPopular = true;
+    private MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         setContentView(R.layout.activity_main);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-
+        checkIfSignedIn();
         setupNavigation();
 
+    }
+
+    private void checkIfSignedIn() {
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                Log.v("Logging", "HELLO!!!" + viewModel.getCurrentUser().getValue().getEmail());
+            } else {
+                startLoginActivity();
+            }
+        });
+    }
+
+    private void startLoginActivity() {
+        startActivity(new Intent(this, SignInActivity.class));
+        finish();
     }
 
     private void setupNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        NavController navController = navHostFragment.getNavController();
+//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.moviesFragment,
-                R.id.listsFragment, R.id.watchlistFragment, R.id.favFragment).build();
+                R.id.listsFragment, R.id.profileFragment, R.id.selected_list_fragment).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     }
 

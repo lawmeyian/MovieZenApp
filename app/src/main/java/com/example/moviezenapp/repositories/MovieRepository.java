@@ -2,13 +2,17 @@ package com.example.moviezenapp.repositories;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.moviezenapp.MovieLiveData;
 import com.example.moviezenapp.models.Movie;
+import com.example.moviezenapp.models.MovieList;
 import com.example.moviezenapp.network.MovieApiClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieRepository {
     private static MovieRepository instance;
+    private MovieLiveData movieDAO;
 
     private MovieApiClient movieApiClient;
 
@@ -22,8 +26,26 @@ public class MovieRepository {
         return instance;
     }
 
+
+
     private MovieRepository() {
         movieApiClient = MovieApiClient.getInstance();
+    }
+
+    public void init(String userId) {
+        movieDAO = new MovieLiveData(userId);
+    }
+
+    public void remove(String listId, String id) {
+        movieDAO.remove(listId, id);
+    }
+
+    public void saveMovie(String listId, Movie movieToSave) {
+        movieDAO.saveMovie(listId, movieToSave);
+    }
+
+    public LiveData<ArrayList<MovieList>> getAllListsFromDB() {
+        return movieDAO.getAllListsFromDB();
     }
 
     public LiveData<List<Movie>> getMovies() {

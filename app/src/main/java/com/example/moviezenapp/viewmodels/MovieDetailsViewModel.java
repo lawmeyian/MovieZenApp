@@ -6,62 +6,45 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.moviezenapp.dao.FavoriteDao;
-import com.example.moviezenapp.dao.WatchlistDao;
-import com.example.moviezenapp.database.MoviesDb;
-import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.models.Watchlist;
-import com.example.moviezenapp.repositories.FavoriteListRepository;
-import com.example.moviezenapp.repositories.WatchlistRepository;
+import com.example.moviezenapp.models.MovieList;
+import com.example.moviezenapp.repositories.MovieRepository;
+import com.example.moviezenapp.repositories.UserRepository;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
-    private final FavoriteListRepository favoriteListRepository;
-    private final WatchlistRepository watchlistRepository;
+    private final UserRepository userRepository;
+    private MovieRepository repository;
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
-        favoriteListRepository = FavoriteListRepository.getInstance(application);
-        watchlistRepository = WatchlistRepository.getInstance(application);
 
+        userRepository = UserRepository.getInstance(application);
+        repository = MovieRepository.getInstance();
+        init();
     }
 
-//    public void addMovie(Movie movie) {
-//        executorService.execute(() -> moviesDb.movieDao().add(movie));
-//    }
-
-
-    public LiveData<List<Watchlist>> getAllWatchlistMovies() {
-        return watchlistRepository.getAll();
+    public void init() {
+        String userId = userRepository.getCurrentUser().getValue().getUid();
+        repository.init(userId);
     }
 
-    public LiveData<List<FavoriteList>> getMovieFromFavorites(int movieId) {
-        return favoriteListRepository.getMoviesFromFavoriteList(movieId);
+    public LiveData<FirebaseUser> getCurrentUser() {
+        return userRepository.getCurrentUser();
     }
 
-    public LiveData<List<Watchlist>> getMovieFromWatchlist(int movieId) {
-        return watchlistRepository.getMoviesFromWatchlist(movieId);
+    public void saveMovie(String listId, Movie movieToSave) {
+        repository.saveMovie(listId, movieToSave);
+    }
+    public void remove(String listId, String id) {
+        repository.remove(listId, id);
     }
 
-
-    public void removeFromFavorites(FavoriteList movie) {
-        favoriteListRepository.delete(movie);
+    public LiveData<ArrayList<MovieList>> getAllListsFromDB() {
+        return repository.getAllListsFromDB();
     }
 
-    public void removeFromWatchlist(Watchlist movie) {
-        watchlistRepository.delete(movie);
-    }
-
-    public void insertWatchlistItem(Watchlist... watchlists) {
-        watchlistRepository.insertWatchlistItem(watchlists);
-    }
-
-    public void insertFavoriteListItem(FavoriteList... favoriteLists) {
-
-        favoriteListRepository.insertFavoriteListItem(favoriteLists);
-    }
 }

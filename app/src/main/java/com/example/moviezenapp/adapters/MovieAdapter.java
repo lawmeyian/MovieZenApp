@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.models.Watchlist;
-import com.example.moviezenapp.repositories.WatchlistRepository;
 
 import java.util.List;
 

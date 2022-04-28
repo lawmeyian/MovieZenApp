@@ -46,7 +46,6 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/star" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -140,42 +139,25 @@
                 android:text="overview" />
 
 
-<!--            <Button-->
-<!--                android:id="@+id/button"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:onClick="addToFavorites"-->
-<!--                android:text="Add to favorites" />-->
-            <ImageView
-                android:id="@+id/img_favorite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite_outline"
-                android:visibility="gone"
-                >
-
-            </ImageView>
-
-
-
         </LinearLayout>
 
-<!--        <Button-->
-<!--            android:id="@+id/addToWatchlist"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="watchlist"-->
-<!--            android:visibility="gone"/>-->
-        <ImageView
-            android:id="@+id/img_watchlist"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_watch"
-            android:visibility="gone"
-
             >
 
-        </ImageView>
+
+            <ImageView
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

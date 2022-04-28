@@ -13,10 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieZenApp">
         <activity
+            android:name=".ui.SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MovieDetails"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

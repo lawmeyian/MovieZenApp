@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "217306538321",
+    "firebase_url": "https://moviezenapp-35014-default-rtdb.firebaseio.com",
+    "project_id": "moviezenapp-35014",
+    "storage_bucket": "moviezenapp-35014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217306538321:android:570829ecb0140e89ea3370",
+        "android_client_info": {
+          "package_name": "com.example.moviezenapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217306538321-efakgabochaon18th50u0n5crmk5sp8j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviezenapp",
+            "certificate_hash": "c7a45b0d8e9a2e5cfdfee81d681cc6e4ac63e821"
+          }
+        },
+        {
+          "client_id": "217306538321-0m7tg3m1em9u8kts54o9jnl1ckp5uk9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3nTy0JIxzFKibgvAG0AG11qGFxP_7kPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217306538321-0m7tg3m1em9u8kts54o9jnl1ckp5uk9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

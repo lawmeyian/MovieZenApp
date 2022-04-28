@@ -1,3 +1,4 @@
+
 package com.example.moviezenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,45 +7,38 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.models.FavoriteList;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.models.Watchlist;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
+import com.example.moviezenapp.viewmodels.ListsViewModel;
+import com.google.gson.Gson;
 
 public class MovieDetails extends AppCompatActivity {
 
+    private Gson gson = new Gson();
     //Widgets
     private ImageView imageViewDetails;
     private TextView titleDetails, descDetails, release_date, language, vote_count, vote_average;
-    Movie movie;
-    MovieDetailsViewModel movieDetailsViewModel;
-    ImageView imageFav;
-Watchlist watchlistObject;
-FavoriteList favoriteListObject;
-    private Boolean isMovieAvailableInFavorites = false;
-    private Boolean isMovieAvailableInWatchlist = false;
-    ImageView watchlist;
-    Button watchlistButton;
-//    private RatingBar ratingBarDetails;
-
+    Movie movieModel;
+    private MovieDetailsViewModel viewModel;
+    //    private RatingBar ratingBarDetails;
+    ImageView favorite, save, watched;
+    private String listId;
+    private Boolean isMovieAvailableInWatchedList = false;
+    private ListsViewModel listsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-        imageFav = findViewById(R.id.img_favorite);
-        watchlistObject = new Watchlist();
-        favoriteListObject = new FavoriteList();
-        watchlist = findViewById(R.id.img_watchlist);
-//        watchlistButton = findViewById(R.id.addToWatchlist);
+
+        viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        listsViewModel = ListsViewModel.getInstance();
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.textView_title_details);
         descDetails = findViewById(R.id.textView_detail);
@@ -53,214 +47,37 @@ FavoriteList favoriteListObject;
         vote_count = findViewById(R.id.vote_count);
         vote_average = findViewById(R.id.vote_average);
 //        ratingBarDetails = findViewById(R.id.ratingBar_details);
-
-//        watchlistButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addToWatchlist(movie);
-//                Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-watchlist.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        if (isMovieAvailableInWatchlist) {
-            movieDetailsViewModel.removeFromWatchlist(watchlistObject);
-            isMovieAvailableInWatchlist = false;
-            watchlist.setImageResource(R.drawable.ic_watch);
-            Toast.makeText(getApplicationContext(), "Removed from watchlist: " + watchlistObject.getTitle(), Toast.LENGTH_SHORT).show();
-        } else {
-            addToWatchlist(movie);
-            isMovieAvailableInWatchlist = true;
-            watchlist.setImageResource(R.drawable.ic_watched);
-
-            Toast.makeText(getApplicationContext(), "Added to watchlist: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
-        }
-    }
-});
-
-        imageFav.setOnClickListener(new View.OnClickListener() {
+        save = findViewById(R.id.save);
+        GetDataFromIntent();
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isMovieAvailableInFavorites) {
-                    movieDetailsViewModel.removeFromFavorites(favoriteListObject);
-                    isMovieAvailableInFavorites = false;
-                    imageFav.setImageResource(R.drawable.ic_favorite_outline);
-                    Toast.makeText(getApplicationContext(), "Removed from fav: " + favoriteListObject.getTitle(), Toast.LENGTH_SHORT).show();
-                } else {
-                 addToFavoriteList(movie);
-                    isMovieAvailableInFavorites = true;
-                    imageFav.setImageResource(R.drawable.ic_favorite);
-
-                    Toast.makeText(getApplicationContext(), "Added to fav: " + movie.getTitle(), Toast.LENGTH_SHORT).show();
-                }
+                viewModel.saveMovie("saved", movieModel);
+                Toast.makeText(getApplicationContext(), movieModel.getTitle() + " Saved", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
-
-
-        if(getIntent().hasExtra("movie")) {
-            GetDataFromIntent();
-            imageFav.setVisibility(View.VISIBLE);
-//            watchlistButton.setVisibility(View.VISIBLE);
-            watchlist.setVisibility(View.VISIBLE);
-        } else if (getIntent().hasExtra("watchlist")){
-            getData();
-            watchlist.setVisibility(View.VISIBLE);
-        }
-        else if(getIntent().hasExtra("favoriteList"))
-        {
-            getFavoriteData();
-            imageFav.setVisibility(View.VISIBLE);
-        }
-
-    }
-    private void addToWatchlist(Movie movie) {
-        watchlistObject.setId(movie.getId());
-        watchlistObject.setTitle(movie.getTitle());
-        watchlistObject.setPoster_path(movie.getPoster_path());
-        watchlistObject.setOverview(movie.getOverview());
-        watchlistObject.setOriginal_language(movie.getOriginal_language());
-        watchlistObject.setRelease_date(movie.getRelease_date());
-        watchlistObject.setVote_average(movie.getVote_average());
-        watchlistObject.setVote_count(movie.getVote_count());
-//     watchlistObject.setPoster_path("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path());
-
-      movieDetailsViewModel.insertWatchlistItem(watchlistObject);
-    }
-    private void addToFavoriteList(Movie movie) {
-        favoriteListObject.setId(movie.getId());
-        favoriteListObject.setTitle(movie.getTitle());
-        favoriteListObject.setPoster_path(movie.getPoster_path());
-        favoriteListObject.setOverview(movie.getOverview());
-        favoriteListObject.setOriginal_language(movie.getOriginal_language());
-        favoriteListObject.setRelease_date(movie.getRelease_date());
-        favoriteListObject.setVote_average(movie.getVote_average());
-        favoriteListObject.setVote_count(movie.getVote_count());
-//     watchlistObject.setPoster_path("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path());
-        movieDetailsViewModel.insertFavoriteListItem(favoriteListObject);
     }
 
 
-
-    private void getData()
-    {
-        watchlistObject = (Watchlist) getIntent().getSerializableExtra("watchlist");
-        checkMoviesInWatchlist();
-
-        titleDetails.setText(watchlistObject.getTitle());
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + watchlistObject.getPoster_path()).into(imageViewDetails);
-        descDetails.setText(watchlistObject.getOverview());
-        release_date.setText(watchlistObject.getRelease_date());
-        language.setText(watchlistObject.getOriginal_language());
-
-        vote_average.setText(Float.toString(watchlistObject.getVote_average()));
-        vote_count.setText(Float.toString(watchlistObject.getVote_count()));
-        movieDetailsViewModel.insertWatchlistItem(watchlistObject);
-
-    }
-    private void getFavoriteData()
-    {
-        favoriteListObject = (FavoriteList) getIntent().getSerializableExtra("favoriteList");
-//        checkMoviesInWatchlist();
-        checkMoviesInFavoriteList();
-
-        titleDetails.setText(favoriteListObject.getTitle());
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + favoriteListObject.getPoster_path()).into(imageViewDetails);
-        descDetails.setText(favoriteListObject.getOverview());
-        release_date.setText(favoriteListObject.getRelease_date());
-        language.setText(favoriteListObject.getOriginal_language());
-
-        vote_average.setText(Float.toString(favoriteListObject.getVote_average()));
-        vote_count.setText(Float.toString(favoriteListObject.getVote_count()));
-        movieDetailsViewModel.insertFavoriteListItem(favoriteListObject);
-    }
     private void GetDataFromIntent() {
+        if (getIntent().hasExtra("movie")) {
+            movieModel = (Movie) getIntent().getSerializableExtra("movie");
 
+            titleDetails.setText(movieModel.getTitle());
+            Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movieModel.getPoster_path()).into(imageViewDetails);
+            descDetails.setText(movieModel.getMovie_overview());
+            release_date.setText(movieModel.getRelease_date());
+            language.setText(movieModel.getOriginal_language());
 
-        movie = (Movie) getIntent().getSerializableExtra("movie");
-     checkMoviesInFavoriteListInMovies();
-     checkMoviesInWatchlistInMovies();
+            vote_average.setText(Float.toString(movieModel.getVote_average()));
+            vote_count.setText(Float.toString(movieModel.getVote_count()));
 
-        titleDetails.setText(movie.getTitle());
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path()).into(imageViewDetails);
-        descDetails.setText(movie.getOverview());
-        release_date.setText(movie.getRelease_date());
-        language.setText(movie.getOriginal_language());
-
-        vote_average.setText(Float.toString(movie.getVote_average()));
-        vote_count.setText(Float.toString(movie.getVote_count()));
-
-
-
-    }
-
-    private void checkMoviesInFavoriteList() {
-        movieDetailsViewModel.getMovieFromFavorites(favoriteListObject.getId()).observe(this, movies -> {
-            Log.v("sizefav", "onChanged " + movies.size());
-            if (movies.size() == 1) {
-                isMovieAvailableInFavorites = true;
-                imageFav.setImageResource(R.drawable.ic_favorite);
-            } else {
-                isMovieAvailableInFavorites = false;
-                imageFav.setImageResource(R.drawable.ic_favorite_outline);
-            }
-        });
+            Log.v("Tag", "Avg############# " + movieModel.getVote_average());
+            Log.v("Tag", "Lang############# " + movieModel.getOriginal_language());
+            Log.v("Tag", "count############# " + movieModel.getVote_count());
+        }
 
     }
-
-    private void checkMoviesInFavoriteListInMovies() {
-
-
-        movieDetailsViewModel.getMovieFromFavorites(movie.getId()).observe(this, movies -> {
-            Log.v("sizefav", "onChanged " + movies.size());
-            if (movies.size() == 1) {
-                isMovieAvailableInFavorites = true;
-                imageFav.setImageResource(R.drawable.ic_favorite);
-            } else {
-                isMovieAvailableInFavorites = false;
-                imageFav.setImageResource(R.drawable.ic_favorite_outline);
-            }
-        });
-
-
-    }
-
-    private void checkMoviesInWatchlist() {
-
-        movieDetailsViewModel.getMovieFromWatchlist(watchlistObject.getId()).observe(this, movies -> {
-            Log.v("sizee", "onChanged " + movies.size());
-            if (movies.size() == 1) {
-                isMovieAvailableInWatchlist = true;
-                watchlist.setImageResource(R.drawable.ic_watched);
-            } else {
-                isMovieAvailableInWatchlist = false;
-                watchlist.setImageResource(R.drawable.ic_watch);
-            }
-        });
-
-
-
-    }
-
-    private void checkMoviesInWatchlistInMovies() {
-
-        movieDetailsViewModel.getMovieFromWatchlist(movie.getId()).observe(this, movies -> {
-            Log.v("sizee", "onChanged " + movies.size());
-            if (movies.size() == 1) {
-                isMovieAvailableInWatchlist = true;
-                watchlist.setImageResource(R.drawable.ic_watched);
-            } else {
-                isMovieAvailableInWatchlist = false;
-                watchlist.setImageResource(R.drawable.ic_watch);
-            }
-        });
-
-
-
-    }
-
-
-
 }
