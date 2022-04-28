@@ -1,4 +1,4 @@
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.ui.SignInActivity;
-import com.example.moviezenapp.viewmodels.ProfileViewModel;
 import com.google.firebase.auth.UserInfo;
 
 public class ProfileFragment extends Fragment {

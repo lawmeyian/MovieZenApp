@@ -1,4 +1,4 @@
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.movies;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.MovieAdapter;
 import com.example.moviezenapp.adapters.OnMovieClickListener;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.ui.MovieDetails;
+import com.example.moviezenapp.ui.MovieDetailsActivity;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class MoviesFragment extends Fragment implements OnMovieClickListener {
     //        Toast.makeText(this.getContext(), "The Position" + position, Toast.LENGTH_SHORT).show();
             // We need id of movie in order to get all it's details
             Context context = getContext();
-            Class destination = MovieDetails.class;
+            Class destination = MovieDetailsActivity.class;
 
 
             Intent intent = new Intent(context, destination);

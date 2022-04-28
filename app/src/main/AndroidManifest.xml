@@ -16,7 +16,7 @@
             android:name=".ui.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MovieDetails"
+            android:name=".ui.MovieDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

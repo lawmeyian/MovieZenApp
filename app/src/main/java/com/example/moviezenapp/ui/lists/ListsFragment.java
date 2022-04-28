@@ -1,4 +1,4 @@
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.lists;
 
 import android.os.Bundle;
 
@@ -19,7 +19,6 @@ import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.ListsAdapter;
 import com.example.moviezenapp.models.MovieList;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-import com.example.moviezenapp.viewmodels.ListsViewModel;
 
 import java.util.ArrayList;
 

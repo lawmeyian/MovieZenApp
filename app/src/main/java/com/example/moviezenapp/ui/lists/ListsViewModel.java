@@ -1,4 +1,4 @@
-package com.example.moviezenapp.viewmodels;
+package com.example.moviezenapp.ui.lists;
 
 import androidx.lifecycle.ViewModel;
 

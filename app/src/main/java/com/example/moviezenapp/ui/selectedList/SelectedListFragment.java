@@ -1,4 +1,4 @@
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.selectedList;
 
 import android.os.Bundle;
 
@@ -17,7 +17,7 @@ import com.example.moviezenapp.adapters.SelectedListAdapter;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.MovieList;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-import com.example.moviezenapp.viewmodels.ListsViewModel;
+import com.example.moviezenapp.ui.lists.ListsViewModel;
 
 import java.util.ArrayList;
 

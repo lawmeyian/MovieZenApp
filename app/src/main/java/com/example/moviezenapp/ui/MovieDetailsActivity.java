@@ -15,10 +15,10 @@ import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
-import com.example.moviezenapp.viewmodels.ListsViewModel;
+import com.example.moviezenapp.ui.lists.ListsViewModel;
 import com.google.gson.Gson;
 
-public class MovieDetails extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     private Gson gson = new Gson();
     //Widgets
