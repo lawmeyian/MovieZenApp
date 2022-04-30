@@ -84,7 +84,7 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
                 textView.setText("");
             }
 
-            GridLayoutManager manager = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
+            GridLayoutManager manager = new GridLayoutManager(getContext(), 1, RecyclerView.VERTICAL, false);
             recyclerView.setLayoutManager(manager);
             ListsAdapter adapter = new ListsAdapter(listsOfMovieList, this);
             recyclerView.setAdapter(adapter);

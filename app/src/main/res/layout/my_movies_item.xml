@@ -18,7 +18,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="5dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <ImageView
             android:id="@+id/imageSelectedListItem"
             android:layout_width="90dp"
             android:layout_height="135dp"
