@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +21,10 @@ import com.google.firebase.auth.UserInfo;
 
 
 public class ProfileFragment extends Fragment {
-private Button signOut;
+private ImageView signOut;
 private TextView email;
 private ImageView avatar;
-private TextView name;
+private TextView name, random;
 
 ProfileViewModel mViewModel;
 
@@ -39,6 +40,7 @@ ProfileViewModel mViewModel;
         name = view.findViewById(R.id.usename);
 
 
+
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,16 +54,10 @@ ProfileViewModel mViewModel;
         mViewModel.getUserLiveData().observe(getViewLifecycleOwner(), firebaseUser -> {
             if (firebaseUser != null) {
                 UserInfo profile = firebaseUser.getProviderData().get(0);
-                name.setText(profile.getDisplayName());
+                name.setText(firebaseUser.getDisplayName());
                 email.setText(profile.getEmail());
+//                random.setText(firebaseUser.getEmail());
 
-
-
-//                provider.setText(profile.getProviderId());
-//                Uri photoUrl = profile.getPhotoUrl();
-//                Picasso.get()
-//                        .load(photoUrl)
-//                        .into(profileImage);
             }
         });
 
