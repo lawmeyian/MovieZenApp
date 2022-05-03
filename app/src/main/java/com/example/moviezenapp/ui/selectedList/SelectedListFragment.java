@@ -38,12 +38,18 @@ public class SelectedListFragment extends Fragment implements SelectedListAdapte
         viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         listsViewModel = ListsViewModel.getInstance();
         recyclerView = view.findViewById(R.id.recyclerView);
+        textView = view.findViewById(R.id.textView);
 
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         listFromNavigation = listsViewModel.getListOfMovies();
         list = listsViewModel.getListOfMovies().getList();
+        if (list.isEmpty()) {
+            textView.setText("No movies");
+        } else {
+            textView.setText("");
+        }
         adapter = new SelectedListAdapter(listFromNavigation.getId(), list, getContext(), this);
 
         recyclerView.setAdapter(adapter);

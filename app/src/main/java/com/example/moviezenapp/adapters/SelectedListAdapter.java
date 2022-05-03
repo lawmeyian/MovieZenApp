@@ -1,5 +1,6 @@
 package com.example.moviezenapp.adapters;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,12 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
+import com.example.moviezenapp.models.MovieList;
+import com.example.moviezenapp.ui.lists.ListsViewModel;
 import com.example.moviezenapp.ui.movies.MoviesViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -30,7 +35,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     private MoviesViewModel viewModel;
     private Movie toFavorite;
     private Movie watchedMovie;
+    private Movie movie;
     private String id;
+    private MovieList listFromNavigation = new MovieList();
+    private ListsViewModel listsViewModel;
+    View view;
     final private SelectedListAdapter.OnListItemClickListener mOnListItemClickListener;
 
     public SelectedListAdapter(String id, ArrayList<Movie> list, Context context, SelectedListAdapter.OnListItemClickListener mOnListItemClickListener) {
@@ -39,6 +48,8 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         this.mOnListItemClickListener = mOnListItemClickListener;
         this.viewModel = MoviesViewModel.getInstance();
         this.id = id;
+        listsViewModel = ListsViewModel.getInstance();
+        listFromNavigation = listsViewModel.getListOfMovies();
     }
 
     public interface OnListItemClickListener {
@@ -49,7 +60,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.my_movies_item, parent, false);
+        view = inflater.inflate(R.layout.my_movies_item, parent, false);
         return new SelectedListAdapter.ViewHolder(view);
     }
 
@@ -59,7 +70,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         dialog.setContentView(R.layout.dialog);
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         dialog.setCancelable(true);
 
         Button submit = dialog.findViewById(R.id.doneRating);
@@ -123,6 +134,27 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
         });
 
+        holder.deleteMovie.setOnClickListener(v -> {
+
+            movie = list.get(position);
+            list.remove(position);
+            viewModel.remove(id, movie.getId());
+            this.notifyItemRemoved(position);
+
+            Snackbar snackbar = Snackbar.make(view, movie.getTitle() + " Removed", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(ContextCompat.getColor(context, R.color.teal_700))
+                    .setAction("Undo", view -> {
+                        list.add(position, movie);
+                        viewModel.saveMovie(listFromNavigation.getId(), movie);
+                        this.notifyItemInserted(position);
+                    });
+            View snackBarView = snackbar.getView();
+            snackBarView.setTranslationY(-45);
+            snackbar.show();
+
+
+        });
+
         holder.editRating.setOnClickListener(v -> {
             dialog.show();
 
@@ -140,6 +172,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             });
         });
 
+
     }
 
     @Override
@@ -153,6 +186,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         ImageView poster;
         ImageView imageFav;
         ImageView imageWatched;
+        ImageView deleteMovie;
         TextView personalRating;
         ImageView editRating;
 
@@ -165,6 +199,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             imageWatched = itemView.findViewById(R.id.addToWatchlist);
             personalRating = itemView.findViewById(R.id.personalRatingSelectedList);
             editRating = itemView.findViewById(R.id.editRating);
+            deleteMovie = itemView.findViewById(R.id.delete);
 
             if (id.equals("favorite")) {
                 imageFav.setVisibility(View.INVISIBLE);

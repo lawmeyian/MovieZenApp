@@ -63,7 +63,7 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
                                 movieList.setName(name);
                                 break;
                             case "favorite":
-                                name = "Favorite";
+                                name = "Favorites";
                                 movieList.setName(name);
                                 break;
                             default:
