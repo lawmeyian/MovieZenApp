@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.MovieAdapter;
-import com.example.moviezenapp.adapters.OnMovieClickListener;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.ui.MovieDetailsActivity;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
@@ -26,7 +25,7 @@ import com.example.moviezenapp.viewmodels.MovieViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesFragment extends Fragment implements OnMovieClickListener {
+public class MoviesFragment extends Fragment implements MovieAdapter.OnMovieClickListener {
     RecyclerView movieList;
     private MovieAdapter movieRecyclerAdapter;
     List<Movie> moviesList;

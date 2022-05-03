@@ -61,7 +61,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            mOnListItemClickListener.onListItemClick(getAdapterPosition());
+            mOnListItemClickListener.onListItemClick(getBindingAdapterPosition());
         }
     }
 }

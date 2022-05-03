@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,10 +35,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        // Image view: Using Glide Library
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + movies.get(position).getPoster_path())
                 .into((((MovieViewHolder) holder).imageView));
-//        ((MovieViewHolder)holder).ratingBar.setRating((movies.get(position).getVote_average())/2);
     }
 
 
@@ -64,5 +64,44 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
         }
         return null;
+    }
+
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        //Widgets
+        ImageView imageView;
+        TextView movie_title, desc, release_date, language, vote_count, vote_average;
+
+        // Click listener
+        OnMovieClickListener onMovieClickListener;
+        Movie movie;
+
+
+        public MovieViewHolder(@NonNull View itemView, OnMovieClickListener onMovieClickListener) {
+            super(itemView);
+            this.onMovieClickListener = onMovieClickListener;
+            imageView = itemView.findViewById(R.id.movie_image);
+            movie_title = itemView.findViewById(R.id.textView_title_details);
+            desc = itemView.findViewById(R.id.textView_detail);
+            release_date = itemView.findViewById(R.id.release_date);
+            language = itemView.findViewById(R.id.language);
+            vote_count = itemView.findViewById(R.id.vote_count);
+            vote_average = itemView.findViewById(R.id.vote_average);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (onMovieClickListener != null) {
+                onMovieClickListener.onMovieClick(getBindingAdapterPosition());
+            }
+
+        }
+    }
+
+    public interface OnMovieClickListener {
+        void onMovieClick(int position);
+
     }
 }

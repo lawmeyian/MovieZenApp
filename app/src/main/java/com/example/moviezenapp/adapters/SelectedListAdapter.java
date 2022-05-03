@@ -60,19 +60,19 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
 
         Button submit = dialog.findViewById(R.id.doneRating);
         EditText rating = dialog.findViewById(R.id.ratingEditText);
 
 
         holder.name.setText(list.get(position).getTitle());
-        holder.rating.setText("TMDB Rating: " + list.get(position).getVote_average());
+        holder.rating.setText("General Rating: " + list.get(position).getVote_average());
 
         if (list.get(position).getPersonalRating() == 0.0) {
             holder.personalRating.setText("");
         } else {
-            holder.personalRating.setText(String.valueOf(list.get(position).getPersonalRating()));
+            holder.personalRating.setText("My Rating: " + list.get(position).getPersonalRating());
         }
 
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
@@ -93,10 +93,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
                     viewModel.saveMovie("favorite", toFavorite);
                     list.remove(position);
                     viewModel.remove(id, toFavorite.getId());
+                    this.notifyItemRemoved(position);
                 }
             });
 
-            this.notifyItemRemoved(position);
+
         });
 
         holder.imageWatched.setOnClickListener(v -> {
@@ -115,10 +116,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
                     viewModel.saveMovie("watched", watchedMovie);
                     list.remove(position);
                     viewModel.remove(id, watchedMovie.getId());
+                    this.notifyItemRemoved(position);
                 }
             });
 
-            this.notifyItemRemoved(position);
+
         });
 
         holder.editRating.setOnClickListener(v -> {
