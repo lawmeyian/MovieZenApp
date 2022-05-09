@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.MovieAdapter;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.ui.MovieDetailsActivity;
+import com.example.moviezenapp.ui.movieDetails.MovieDetailsActivity;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 
 import java.util.ArrayList;
@@ -37,10 +37,10 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnMovieClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         moviesList = new ArrayList<>();
-            movieList = view.findViewById(R.id.recyclerView);
+        movieList = view.findViewById(R.id.recyclerView);
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
-            movieRecyclerAdapter = new MovieAdapter(moviesList,this);
+        movieRecyclerAdapter = new MovieAdapter(moviesList, this);
 
         ConfigureRecyclerView();
         ObserveAnyChange();
@@ -52,7 +52,6 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnMovieClic
 
 
     }
-
 
 
     private void ObservePopularMovies() {
@@ -87,42 +86,35 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnMovieClic
         });
     }
 
-        private void ConfigureRecyclerView() {
+    private void ConfigureRecyclerView() {
 
-            movieRecyclerAdapter = new MovieAdapter(moviesList,this);
-            movieList.setAdapter(movieRecyclerAdapter);
+        movieRecyclerAdapter = new MovieAdapter(moviesList, this);
+        movieList.setAdapter(movieRecyclerAdapter);
 
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
 
-            movieList.setLayoutManager(gridLayoutManager);
-            movieList.setHasFixedSize(true);
-    //        movieList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        movieList.setLayoutManager(gridLayoutManager);
+        movieList.setHasFixedSize(true);
 
-            //RecyclerView Pagination
-            // Loading next page of api response
-
-            movieList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    if (!movieList.canScrollVertically(1)) {
-                        // Here we display the next search results
-                        movieViewModel.searchNextPage();
-                    }
+        movieList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (!movieList.canScrollVertically(1)) {
+                    // Here we display the next search results
+                    movieViewModel.searchNextPage();
                 }
-            });
-        }
+            }
+        });
+    }
 
 
-        @Override
-        public void onMovieClick(int position) {
-    //        Toast.makeText(this.getContext(), "The Position" + position, Toast.LENGTH_SHORT).show();
-            // We need id of movie in order to get all it's details
-            Context context = getContext();
-            Class destination = MovieDetailsActivity.class;
+    @Override
+    public void onMovieClick(int position) {
+        Context context = getContext();
+        Class destination = MovieDetailsActivity.class;
 
-
-            Intent intent = new Intent(context, destination);
-            intent.putExtra("movie", movieRecyclerAdapter.getSelectedMovie(position));
-            startActivity(intent);
-        }
+        Intent intent = new Intent(context, destination);
+        intent.putExtra("movie", movieRecyclerAdapter.getSelectedMovie(position));
+        startActivity(intent);
+    }
 }

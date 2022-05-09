@@ -9,7 +9,7 @@ public class MovieList {
 
     public MovieList() {
         this.list = new ArrayList<>();
-        this.name = "";
+        this.name = null;
     }
 
     public MovieList(String name) {

@@ -1,11 +1,10 @@
 
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.movieDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
-import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
 import com.example.moviezenapp.ui.lists.ListsViewModel;
 import com.google.gson.Gson;
 
@@ -26,7 +24,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView titleDetails, descDetails, release_date, language, vote_count, vote_average;
     Movie movieModel;
     private MovieDetailsViewModel viewModel;
-    //    private RatingBar ratingBarDetails;
     ImageView favorite, save, watched;
     private String listId;
     private Boolean isMovieAvailableInWatchedList = false;
@@ -46,9 +43,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         language = findViewById(R.id.language);
         vote_count = findViewById(R.id.vote_count);
         vote_average = findViewById(R.id.vote_average);
-//        ratingBarDetails = findViewById(R.id.ratingBar_details);
         save = findViewById(R.id.save);
+
         GetDataFromIntent();
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,9 +72,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             vote_average.setText(Float.toString(movieModel.getVote_average()));
             vote_count.setText(Float.toString(movieModel.getVote_count()));
 
-            Log.v("Tag", "Avg############# " + movieModel.getVote_average());
-            Log.v("Tag", "Lang############# " + movieModel.getOriginal_language());
-            Log.v("Tag", "count############# " + movieModel.getVote_count());
         }
 
     }

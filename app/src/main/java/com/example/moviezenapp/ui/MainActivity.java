@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.ui.SignInActivity;
+import com.example.moviezenapp.ui.signIn.SignInActivity;
 import com.example.moviezenapp.viewmodels.MainActivityViewModel;
 import com.example.moviezenapp.viewmodels.MovieViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

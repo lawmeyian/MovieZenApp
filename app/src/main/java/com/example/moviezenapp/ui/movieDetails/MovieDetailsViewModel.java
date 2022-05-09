@@ -1,4 +1,4 @@
-package com.example.moviezenapp.viewmodels;
+package com.example.moviezenapp.ui.movieDetails;
 
 import android.app.Application;
 

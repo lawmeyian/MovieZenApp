@@ -7,11 +7,9 @@ import com.example.moviezenapp.models.MovieList;
 public class ListsViewModel extends ViewModel {
 
     private static ListsViewModel instance;
-    //    private MovieData repository;
     private MovieList list;
 
     private ListsViewModel() {
-//        repository = MovieData.getInstance();
     }
 
     public static synchronized ListsViewModel getInstance() {

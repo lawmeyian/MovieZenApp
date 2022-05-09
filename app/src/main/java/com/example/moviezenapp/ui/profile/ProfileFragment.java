@@ -10,23 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.ui.SignInActivity;
+import com.example.moviezenapp.ui.signIn.SignInActivity;
 import com.google.firebase.auth.UserInfo;
 
 
 public class ProfileFragment extends Fragment {
-private Button signOut;
-private TextView email;
-private ImageView avatar;
-private TextView name, random;
+    private Button signOut;
+    private TextView email;
+    private ImageView avatar;
+    private TextView name, random;
 
-ProfileViewModel mViewModel;
+    ProfileViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,7 +36,6 @@ ProfileViewModel mViewModel;
         email = view.findViewById(R.id.email);
         avatar = view.findViewById(R.id.userAvatar);
         name = view.findViewById(R.id.usename);
-
 
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +53,6 @@ ProfileViewModel mViewModel;
                 UserInfo profile = firebaseUser.getProviderData().get(0);
                 name.setText(firebaseUser.getDisplayName());
                 email.setText(profile.getEmail());
-//                random.setText(firebaseUser.getEmail());
-
             }
         });
 

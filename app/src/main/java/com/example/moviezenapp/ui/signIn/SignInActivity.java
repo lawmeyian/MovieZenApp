@@ -1,4 +1,4 @@
-package com.example.moviezenapp.ui;
+package com.example.moviezenapp.ui.signIn;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.moviezenapp.R;
-import com.example.moviezenapp.viewmodels.SignInViewModel;
+import com.example.moviezenapp.ui.MainActivity;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.Arrays;

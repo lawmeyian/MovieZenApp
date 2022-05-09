@@ -16,7 +16,7 @@ import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.SelectedListAdapter;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.MovieList;
-import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
+import com.example.moviezenapp.ui.movieDetails.MovieDetailsViewModel;
 import com.example.moviezenapp.ui.lists.ListsViewModel;
 
 import java.util.ArrayList;

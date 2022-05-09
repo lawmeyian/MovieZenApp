@@ -1,4 +1,4 @@
-package com.example.moviezenapp.viewmodels;
+package com.example.moviezenapp.ui.signIn;
 
 import android.app.Application;
 

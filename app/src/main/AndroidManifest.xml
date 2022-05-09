@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieZenApp">
         <activity
-            android:name=".ui.SignInActivity"
+            android:name=".ui.signIn.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MovieDetailsActivity"
+            android:name=".ui.movieDetails.MovieDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

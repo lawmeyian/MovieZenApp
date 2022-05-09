@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.network;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

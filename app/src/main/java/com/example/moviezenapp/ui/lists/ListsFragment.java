@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.adapters.ListsAdapter;
 import com.example.moviezenapp.models.MovieList;
-import com.example.moviezenapp.viewmodels.MovieDetailsViewModel;
+import com.example.moviezenapp.ui.movieDetails.MovieDetailsViewModel;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,6 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
     private MutableLiveData<ArrayList<MovieList>> listMutableLiveData = new MutableLiveData<>();
     TextView textView, listSize;
     private ListsViewModel listsViewModel;
-
 
 
     @Override
@@ -67,7 +66,7 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
                                 movieList.setName(name);
                                 break;
                             default:
-                                movieList = new MovieList("Unknown");
+                                movieList = new MovieList("Random");
                         }
                     }
                     list.add(movieList);
@@ -78,7 +77,7 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
 
         getListMutableLiveData().observe(getViewLifecycleOwner(), listsOfMovieList -> {
             if (listsOfMovieList.size() == 0) {
-                textView.setText("No movies, please add some");
+                textView.setText("There are no movies, please add some");
 
             } else {
                 textView.setText("");
