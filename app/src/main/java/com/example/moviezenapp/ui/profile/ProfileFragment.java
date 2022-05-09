@@ -21,7 +21,7 @@ import com.google.firebase.auth.UserInfo;
 
 
 public class ProfileFragment extends Fragment {
-private ImageView signOut;
+private Button signOut;
 private TextView email;
 private ImageView avatar;
 private TextView name, random;

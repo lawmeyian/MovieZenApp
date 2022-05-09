@@ -33,11 +33,18 @@
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/menu/bottom_nav.xml" value="0.1723684210526316" />
         <entry key="..\:/Users/Lia Cicati/Desktop/AND-Assignment/MovieZenApp/app/src/main/res/menu/navigation_drawer.xml" value="0.1723684210526316" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/drawable/bg_layout.xml" value="0.233" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/drawable/ic_profile.xml" value="0.1645" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_movie_details.xml" value="0.2265625" />
-        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_sign_in.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/add_list_dialog.xml" value="0.264" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/dialog.xml" value="0.2" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_lists.xml" value="0.2078125" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_movies.xml" value="0.2078125" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/fragment_selected_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/list_item.xml" value="0.2078125" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/list_movie_item.xml" value="0.12743362831858407" />
+        <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/movie_list_item.xml" value="0.2078125" />
         <entry key="..\:/Users/Loredana Cicati/AND-Assignment/MovieZenApp/app/src/main/res/layout/my_movies_item.xml" value="0.4" />
       </map>
     </option>
