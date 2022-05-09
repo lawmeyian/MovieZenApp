@@ -16,18 +16,18 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 
 ## Requirements:
 ### Must have:
-- [ ] As a new user, I want to register an account, so that I can track my movie preferences.
-- [ ] As a registered user, I want to log in so that the system can authenticate me.
-- [ ] As a registered user, I want to be able to search for a movie, so that I can easily find what I am looking for.
-- [ ] As a registered user, I want to add movies to different types of lists such as Watched, Liked, Watchlist, so that I can track my preferences.
-- [ ] As a registered user, I want to see a list of popular movies, so that I can get an overview of them and decide to add to appropriate lists.
+- [x] As a new user, I want to register an account, so that I can track my movie preferences.
+- [x] As a registered user, I want to log in so that the system can authenticate me.
+- [x] As a registered user, I want to be able to search for a movie, so that I can easily find what I am looking for.
+- [x] As a registered user, I want to add movies to different types of lists such as Watched, Favorites so that I can track my preferences.
+- [x] As a registered user, I want to see a list of popular movies, so that I can get an overview of them and decide to add to appropriate lists.
 
 ### Should have:
-- [ ] As a registered user, I want to remove movies from any list I added them, so that in case of a mistake or if a change occurs it can be handled properly in the system.
+- [x] As a registered user, I want to remove movies from any list I added them, so that in case of a mistake or if a change occurs it can be handled properly in the system.
 
 ### Could have:
+- [x] As a registered user, I want to give movies my own rating, so that I can keep track of my preferences.
 - [ ] As a registered user, I want to add movies to personalized lists, so that I can group movies by any preferences.
-- [ ] As a registered user, I want to rate movies based on the five-star rating system, so that I can keep track of my preferences.
 - [ ] As a registered user, I want to be able to select a movie and add my favorite quotes related to it, so that I can read and share them with my friends at any time.
 
 ### Would not have:
