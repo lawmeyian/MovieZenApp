@@ -17,7 +17,7 @@ public class Movie implements Serializable {
     private float vote_count;
     private String overview;
     private String original_language;
-    private double personalRating = 0.0;
+    private float personalRating = 0;
 
     public Movie() {
     }
@@ -33,11 +33,11 @@ public class Movie implements Serializable {
         this.original_language = original_language;
     }
 
-    public double getPersonalRating() {
+    public float getPersonalRating() {
         return personalRating;
     }
 
-    public void setPersonalRating(double personalRating) {
+    public void setPersonalRating(float personalRating) {
         this.personalRating = personalRating;
     }
 

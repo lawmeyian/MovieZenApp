@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,16 +75,15 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         dialog.setCancelable(true);
 
         Button submit = dialog.findViewById(R.id.doneRating);
-        EditText rating = dialog.findViewById(R.id.ratingEditText);
-
+        RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
 
         holder.name.setText(list.get(position).getTitle());
-        holder.rating.setText("General Rating: " + list.get(position).getVote_average());
+        holder.releaseDate.setText(list.get(position).getRelease_date());
 
         if (list.get(position).getPersonalRating() == 0.0) {
             holder.personalRating.setText("");
         } else {
-            holder.personalRating.setText("My Rating: " + list.get(position).getPersonalRating());
+            holder.personalRating.setText("My Rating: " + list.get(position).getPersonalRating() + "/5.0");
         }
 
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
@@ -94,18 +94,18 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             dialog.show();
 
             submit.setOnClickListener(v1 -> {
-                if (rating.getText().toString().equals("")) {
+                if (ratingBar.getRating() == 0.0) {
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
-                    double value = Double.parseDouble(rating.getText().toString());
+                    float value = ratingBar.getRating();
                     toFavorite.setPersonalRating(value);
                     dialog.dismiss();
-                    rating.setText("");
                     viewModel.saveMovie("favorite", toFavorite);
                     list.remove(position);
                     viewModel.remove(id, toFavorite.getId());
                     this.notifyItemRemoved(position);
                 }
+
             });
 
 
@@ -117,13 +117,12 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             dialog.show();
 
             submit.setOnClickListener(v1 -> {
-                if (rating.getText().toString().equals("")) {
+                if (ratingBar.getRating() == 0.0) {
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
-                    double value = Double.parseDouble(rating.getText().toString());
+                    float value = ratingBar.getRating();
                     watchedMovie.setPersonalRating(value);
                     dialog.dismiss();
-                    rating.setText("");
                     viewModel.saveMovie("watched", watchedMovie);
                     list.remove(position);
                     viewModel.remove(id, watchedMovie.getId());
@@ -159,12 +158,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             dialog.show();
 
             submit.setOnClickListener(v1 -> {
-                if (rating.getText().toString().equals("")) {
+                if (ratingBar.getRating() == 0.0) {
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
-                    double value = Double.parseDouble(rating.getText().toString());
+                    float value = ratingBar.getRating();
                     dialog.dismiss();
-                    rating.setText("");
                     list.get(position).setPersonalRating(value);
                     viewModel.editMoviePersonalRating(id, list.get(position).getId(), value);
                     notifyDataSetChanged();
@@ -182,22 +180,24 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
-        TextView rating;
+        TextView releaseDate;
         ImageView poster;
         ImageView imageFav;
         ImageView imageWatched;
         ImageView deleteMovie;
         TextView personalRating;
+        RatingBar personalRat;
         ImageView editRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameSelectedListItem);
-            rating = itemView.findViewById(R.id.ratingSelectedListItem);
+            releaseDate = itemView.findViewById(R.id.dateOfRelease);
             poster = itemView.findViewById(R.id.imageSelectedListItem);
             imageFav = itemView.findViewById(R.id.addToFavorite);
             imageWatched = itemView.findViewById(R.id.addToWatchlist);
             personalRating = itemView.findViewById(R.id.personalRatingSelectedList);
+            personalRat = itemView.findViewById(R.id.ratingBar);
             editRating = itemView.findViewById(R.id.editRating);
             deleteMovie = itemView.findViewById(R.id.delete);
 
