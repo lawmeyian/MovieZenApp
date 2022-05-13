@@ -21,8 +21,7 @@ import com.google.firebase.auth.UserInfo;
 public class ProfileFragment extends Fragment {
     private Button signOut;
     private TextView email;
-    private ImageView avatar;
-    private TextView name, random;
+    private TextView name;
 
     ProfileViewModel mViewModel;
 
@@ -34,7 +33,6 @@ public class ProfileFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         signOut = view.findViewById(R.id.signOut);
         email = view.findViewById(R.id.email);
-        avatar = view.findViewById(R.id.userAvatar);
         name = view.findViewById(R.id.usename);
 
 

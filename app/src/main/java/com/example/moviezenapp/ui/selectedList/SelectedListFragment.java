@@ -26,7 +26,7 @@ public class SelectedListFragment extends Fragment implements SelectedListAdapte
     private ArrayList<Movie> list;
     private TextView textView;
     private RecyclerView recyclerView;
-    private MovieList listFromNavigation = new MovieList();
+    private MovieList movieList = new MovieList();
     MovieDetailsViewModel viewModel;
     private SelectedListAdapter adapter;
 
@@ -43,14 +43,14 @@ public class SelectedListFragment extends Fragment implements SelectedListAdapte
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        listFromNavigation = listsViewModel.getListOfMovies();
+        movieList = listsViewModel.getListOfMovies();
         list = listsViewModel.getListOfMovies().getList();
         if (list.isEmpty()) {
             textView.setText("No movies");
         } else {
             textView.setText("");
         }
-        adapter = new SelectedListAdapter(listFromNavigation.getId(), list, getContext(), this);
+        adapter = new SelectedListAdapter(movieList.getId(), list, getContext(), this);
 
         recyclerView.setAdapter(adapter);
 

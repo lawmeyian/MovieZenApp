@@ -80,7 +80,7 @@ public class MovieLiveData extends LiveData<Movie> {
                 movieList.setId(id);
                 break;
             default:
-                movieList = new MovieList("Unknown");
+                movieList = new MovieList("Random");
         }
 
         myRef.child(id).addValueEventListener(new ValueEventListener() {

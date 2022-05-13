@@ -100,7 +100,6 @@ public class MoviesFragment extends Fragment implements MovieAdapter.OnMovieClic
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 if (!movieList.canScrollVertically(1)) {
-                    // Here we display the next search results
                     movieViewModel.searchNextPage();
                 }
             }

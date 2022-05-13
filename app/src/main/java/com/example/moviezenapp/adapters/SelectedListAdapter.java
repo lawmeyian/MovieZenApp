@@ -1,15 +1,11 @@
 package com.example.moviezenapp.adapters;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,7 +34,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     private Movie watchedMovie;
     private Movie movie;
     private String id;
-    private MovieList listFromNavigation = new MovieList();
+    private MovieList movieList;
     private ListsViewModel listsViewModel;
     View view;
     final private SelectedListAdapter.OnListItemClickListener mOnListItemClickListener;
@@ -50,7 +46,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         this.viewModel = MoviesViewModel.getInstance();
         this.id = id;
         listsViewModel = ListsViewModel.getInstance();
-        listFromNavigation = listsViewModel.getListOfMovies();
+        movieList = listsViewModel.getListOfMovies();
     }
 
     public interface OnListItemClickListener {
@@ -144,7 +140,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
                     .setActionTextColor(ContextCompat.getColor(context, R.color.teal_700))
                     .setAction("Undo", view -> {
                         list.add(position, movie);
-                        viewModel.saveMovie(listFromNavigation.getId(), movie);
+                        viewModel.saveMovie(movieList.getId(), movie);
                         this.notifyItemInserted(position);
                     });
             View snackBarView = snackbar.getView();
@@ -179,16 +175,10 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name;
-        TextView releaseDate;
-        ImageView poster;
-        ImageView imageFav;
-        ImageView imageWatched;
-        ImageView deleteMovie;
-        TextView personalRating;
+        TextView name, releaseDate, personalRating;
+        ImageView poster, imageFav, imageWatched, deleteMovie, editRating;
         RatingBar personalRat;
-        ImageView editRating;
-
+        
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameSelectedListItem);

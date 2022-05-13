@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MovieRepository {
     private static MovieRepository instance;
-    private MovieLiveData movieDAO;
+    private MovieLiveData data;
 
     private MovieApiClient movieApiClient;
 
@@ -27,29 +27,28 @@ public class MovieRepository {
     }
 
 
-
     private MovieRepository() {
         movieApiClient = MovieApiClient.getInstance();
     }
 
     public void init(String userId) {
-        movieDAO = new MovieLiveData(userId);
+        data = new MovieLiveData(userId);
     }
 
     public void remove(String listId, String id) {
-        movieDAO.remove(listId, id);
+        data.remove(listId, id);
     }
 
     public void saveMovie(String listId, Movie movieToSave) {
-        movieDAO.saveMovie(listId, movieToSave);
+        data.saveMovie(listId, movieToSave);
     }
 
     public void editMoviePersonalRating(String listId, String movieId, double rating) {
-        movieDAO.editMoviePersonalRating(listId, movieId, rating);
+        data.editMoviePersonalRating(listId, movieId, rating);
     }
 
     public LiveData<ArrayList<MovieList>> getAllListsFromDB() {
-        return movieDAO.getAllListsFromDB();
+        return data.getAllListsFromDB();
     }
 
     public LiveData<List<Movie>> getMovies() {
