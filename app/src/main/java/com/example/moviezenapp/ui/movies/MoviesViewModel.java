@@ -41,4 +41,8 @@ public class MoviesViewModel extends ViewModel {
         repository.editMoviePersonalRating(listId, movieId, rating);
     }
 
+    public void editMoviePersonalRatingKeyword(String listId, String movieId, String keyword) {
+        repository.editMoviePersonalRatingKeyword(listId, movieId, keyword);
+    }
+
 }

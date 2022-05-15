@@ -47,6 +47,10 @@ public class MovieRepository {
         data.editMoviePersonalRating(listId, movieId, rating);
     }
 
+    public void editMoviePersonalRatingKeyword(String listId, String movieId, String keyword) {
+        data.editMoviePersonalRatingKeyword(listId, movieId, keyword);
+    }
+
     public LiveData<ArrayList<MovieList>> getAllListsFromDB() {
         return data.getAllListsFromDB();
     }

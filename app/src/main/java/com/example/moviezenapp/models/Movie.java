@@ -18,6 +18,7 @@ public class Movie implements Serializable {
     private String overview;
     private String original_language;
     private float personalRating = 0;
+    private String keyword;
 
     public Movie() {
     }
@@ -31,6 +32,7 @@ public class Movie implements Serializable {
         this.vote_count = vote_count;
         this.overview = movie_overview;
         this.original_language = original_language;
+        this.keyword = null;
     }
 
     public float getPersonalRating() {
@@ -103,5 +105,13 @@ public class Movie implements Serializable {
 
     public void setOriginal_language(String original_language) {
         this.original_language = original_language;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -72,15 +73,22 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
         Button submit = dialog.findViewById(R.id.doneRating);
         RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
+        EditText keyword = dialog.findViewById(R.id.keyword);
+
+        ratingBar.setRating(list.get(position).getPersonalRating());
+        keyword.setText(list.get(position).getKeyword());
 
         holder.name.setText(list.get(position).getTitle());
         holder.releaseDate.setText(list.get(position).getRelease_date());
+        holder.keywordRating.setText(list.get(position).getKeyword());
 
         if (list.get(position).getPersonalRating() == 0.0) {
             holder.personalRating.setText("");
         } else {
             holder.personalRating.setText("My Rating: " + list.get(position).getPersonalRating() + "/5.0");
         }
+
+
 
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
                 .into(holder.poster);
@@ -90,10 +98,12 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             dialog.show();
 
             submit.setOnClickListener(v1 -> {
-                if (ratingBar.getRating() == 0.0) {
+                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
                     float value = ratingBar.getRating();
+                    String keywordText = keyword.getText().toString();
+                    toFavorite.setKeyword(keywordText);
                     toFavorite.setPersonalRating(value);
                     dialog.dismiss();
                     viewModel.saveMovie("favorite", toFavorite);
@@ -113,10 +123,12 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             dialog.show();
 
             submit.setOnClickListener(v1 -> {
-                if (ratingBar.getRating() == 0.0) {
+                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
                     float value = ratingBar.getRating();
+                    String keywordText = keyword.getText().toString();
+                    watchedMovie.setKeyword(keywordText);
                     watchedMovie.setPersonalRating(value);
                     dialog.dismiss();
                     viewModel.saveMovie("watched", watchedMovie);
@@ -158,9 +170,12 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
                     Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
                 } else {
                     float value = ratingBar.getRating();
+                    String keywordText = keyword.getText().toString();
                     dialog.dismiss();
                     list.get(position).setPersonalRating(value);
+                    list.get(position).setKeyword(keywordText);
                     viewModel.editMoviePersonalRating(id, list.get(position).getId(), value);
+                    viewModel.editMoviePersonalRatingKeyword(id, list.get(position).getId(), keywordText);
                     notifyDataSetChanged();
                 }
             });
@@ -175,10 +190,11 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name, releaseDate, personalRating;
+        TextView name, releaseDate, personalRating, keywordRating, textViewKeyword;
         ImageView poster, imageFav, imageWatched, deleteMovie, editRating;
         RatingBar personalRat;
-        
+        EditText keyword;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameSelectedListItem);
@@ -190,6 +206,9 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             personalRat = itemView.findViewById(R.id.ratingBar);
             editRating = itemView.findViewById(R.id.editRating);
             deleteMovie = itemView.findViewById(R.id.delete);
+            keyword = itemView.findViewById(R.id.keyword);
+            keywordRating = itemView.findViewById(R.id.keywordRating);
+            textViewKeyword = itemView.findViewById(R.id.textViewKeyword);
 
             if (id.equals("favorite")) {
                 imageFav.setVisibility(View.INVISIBLE);
@@ -203,6 +222,7 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
 
             if (id.equals("saved")) {
                 editRating.setVisibility(View.GONE);
+                textViewKeyword.setText("");
             }
 
             itemView.setOnClickListener(this);
