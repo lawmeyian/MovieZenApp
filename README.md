@@ -27,6 +27,7 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 
 ### Could have:
 - [x] As a registered user, I want to rate movies based on the five-star rating system, so that I can keep track of my preferences.
+- [x] As a registered user, I want to describe the movie based on my first impression, so that I can keep track of my preferences.
 - [ ] As a registered user, I want to add movies to personalized lists, so that I can group movies by any preferences.
 - [ ] As a registered user, I want to be able to select a movie and add my favorite quotes related to it, so that I can read and share them with my friends at any time.
 
