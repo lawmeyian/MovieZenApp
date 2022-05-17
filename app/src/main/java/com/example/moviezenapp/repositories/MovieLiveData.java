@@ -1,4 +1,4 @@
-package com.example.moviezenapp;
+package com.example.moviezenapp.repositories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

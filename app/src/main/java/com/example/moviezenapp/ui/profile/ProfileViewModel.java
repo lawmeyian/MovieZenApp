@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.example.moviezenapp.UserLiveData;
+import com.example.moviezenapp.repositories.UserLiveData;
 import com.example.moviezenapp.repositories.UserRepository;
 
 public class ProfileViewModel extends AndroidViewModel {

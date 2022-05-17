@@ -2,7 +2,6 @@ package com.example.moviezenapp.repositories;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.moviezenapp.MovieLiveData;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.models.MovieList;
 import com.example.moviezenapp.network.MovieApiClient;
