@@ -89,33 +89,8 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         }
 
 
-
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
                 .into(holder.poster);
-
-        holder.imageFav.setOnClickListener(v -> {
-            toFavorite = list.get(position);
-            dialog.show();
-
-            submit.setOnClickListener(v1 -> {
-                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
-                    Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
-                } else {
-                    float value = ratingBar.getRating();
-                    String keywordText = keyword.getText().toString();
-                    toFavorite.setKeyword(keywordText);
-                    toFavorite.setPersonalRating(value);
-                    dialog.dismiss();
-                    viewModel.saveMovie("favorite", toFavorite);
-                    list.remove(position);
-                    viewModel.remove(id, toFavorite.getId());
-                    this.notifyItemRemoved(position);
-                }
-
-            });
-
-
-        });
 
         holder.imageWatched.setOnClickListener(v -> {
 

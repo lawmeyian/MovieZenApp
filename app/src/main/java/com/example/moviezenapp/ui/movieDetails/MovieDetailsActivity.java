@@ -4,9 +4,15 @@ package com.example.moviezenapp.ui.movieDetails;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.moviezenapp.R;
 import com.example.moviezenapp.models.Movie;
 import com.example.moviezenapp.ui.lists.ListsViewModel;
+import com.example.moviezenapp.ui.movies.MoviesViewModel;
 import com.google.gson.Gson;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -25,17 +32,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
     Movie movieModel;
     private MovieDetailsViewModel viewModel;
     ImageView favorite, save, watched;
-    private String listId;
-    private Boolean isMovieAvailableInWatchedList = false;
-    private ListsViewModel listsViewModel;
+    private Boolean isMovieAvailableInFavList = false;
+    private MoviesViewModel moviesViewModel;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-
+        this.context = getBaseContext();
         viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-        listsViewModel = ListsViewModel.getInstance();
+        moviesViewModel = MoviesViewModel.getInstance();
         imageViewDetails = findViewById(R.id.imageView_details);
         titleDetails = findViewById(R.id.textView_title_details);
         descDetails = findViewById(R.id.textView_detail);
@@ -44,6 +51,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         vote_count = findViewById(R.id.vote_count);
         vote_average = findViewById(R.id.vote_average);
         save = findViewById(R.id.save);
+        favorite = findViewById(R.id.favorite);
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        dialog.setCancelable(true);
+        Button submit = dialog.findViewById(R.id.doneRating);
+        RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
+        EditText keyword = dialog.findViewById(R.id.keyword);
 
         GetDataFromIntent();
 
@@ -54,6 +71,25 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), movieModel.getTitle() + " Saved", Toast.LENGTH_SHORT).show();
                 finish();
             }
+        });
+
+        favorite.setOnClickListener(v -> {
+            dialog.show();
+            submit.setOnClickListener(v1 -> {
+                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please rate this movie", Toast.LENGTH_SHORT).show();
+                } else {
+                    float value = ratingBar.getRating();
+                    String keywordText = keyword.getText().toString();
+                    movieModel.setKeyword(keywordText);
+                    movieModel.setPersonalRating(value);
+                    dialog.dismiss();
+                    viewModel.saveMovie("favorite", movieModel);
+                    favorite.setImageResource(R.drawable.ic_favorite_filled);
+                    Toast.makeText(getApplicationContext(), "Added to favorites: " + movieModel.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
         });
 
     }
