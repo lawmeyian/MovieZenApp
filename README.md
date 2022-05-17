@@ -8,6 +8,8 @@ Let's imagine that you're enjoying a great chat and the person asks you randomly
 That could be the perfect moment for a movie lover to shine, share your thoughts and impressions but we all get that moment when our mind goes blank and we can recall only few of what we actually know and truly enjoyed. You end up saying whatever comes to mind first, and as soon as the conversation is over, all of the fantastic suggestions you could have made flood your thoughts. Frustrating, right?
 That's why we've chosen this idea to help us stay organized and keep track of what we're watching.
 
+## Video:
+[Click me!](https://youtu.be/Tb9IO1-LrO0)
 
 ## Design:
  [Live prototype Design](https://www.figma.com/proto/2lnIlxcJ8n1b8Z0Nd17ai2/MovieZen-application-(Android-course)?page-id=0%3A1&node-id=2%3A289&viewport=241%2C48%2C1&scaling=min-zoom&starting-point-node-id=2%3A850)
@@ -33,6 +35,20 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 
 ### Would not have:
 - [ ] As a registered user, I want to make my personalized lists public so that other people can have access to them and get inspired to watch a particular movie.
+
+## API
+https://api.themoviedb.org
+
+
+**References**
+
+https://github.com/KasperKnop/GoogleServicesExample
+
+https://github.com/KasperKnop/NetworkingExample
+
+https://developers.themoviedb.org/3/movies/get-movie-details
+
+https://www.youtube.com/watch?v=2Ap_sl1KObk&t=432s
 
 ---
 **NOTE**
