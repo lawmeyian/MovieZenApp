@@ -21,7 +21,7 @@ That's why we've chosen this idea to help us stay organized and keep track of wh
 - [x] As a new user, I want to register an account, so that I can track my movie preferences.
 - [x] As a registered user, I want to log in so that the system can authenticate me.
 - [x] As a registered user, I want to be able to search for a movie, so that I can easily find what I am looking for.
-- [x] As a registered user, I want to add movies to different types of lists such as Watched, Favorites so that I can track my preferences.
+- [x] As a registered user, I want to add movies to different types of lists such as Watched, Favorites, Watchlist so that I can track my preferences.
 - [x] As a registered user, I want to see a list of popular movies, so that I can get an overview of them and decide to add to appropriate lists.
 
 ### Should have:
