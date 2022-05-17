@@ -32,17 +32,6 @@
             android:paddingEnd="16dp"
             android:textAppearance="?attr/textAppearanceSubtitle1" />
 
-        <TextView
-            android:id="@+id/listSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/listName"
-            android:layout_gravity="center_vertical"
-
-            android:maxLines="2"
-            android:paddingEnd="16dp"
-            android:textAppearance="?attr/textAppearanceBody2" />
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"

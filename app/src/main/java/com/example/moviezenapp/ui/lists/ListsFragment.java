@@ -40,7 +40,6 @@ public class ListsFragment extends Fragment implements ListsAdapter.OnListItemCl
         this.list = new ArrayList<>();
         recyclerView = view.findViewById(R.id.myMoviesRecycleView);
         textView = view.findViewById(R.id.myMoviesListText);
-        listSize = view.findViewById(R.id.listSize);
         recyclerView.hasFixedSize();
         listsViewModel = ListsViewModel.getInstance();
 

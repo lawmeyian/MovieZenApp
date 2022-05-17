@@ -38,8 +38,6 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(lists.get(position).getName());
-        String m = holder.size.getText().toString();
-        holder.size.setText(lists.get(position).getSize() + " movies" + m);
     }
 
     @Override
@@ -50,12 +48,10 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView name;
-        TextView size;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.listName);
-            size = itemView.findViewById(R.id.listSize);
             itemView.setOnClickListener(this);
         }
 
