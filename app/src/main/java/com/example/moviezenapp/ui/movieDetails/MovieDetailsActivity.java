@@ -29,7 +29,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView titleDetails, descDetails, release_date, language, vote_count, vote_average;
     Movie movieModel;
     private MovieDetailsViewModel viewModel;
-    ImageView favorite, save, watched;
+    ImageView favorite, watchlist, watched;
     private Boolean isMovieAvailableInFavList = false;
     private MoviesViewModel moviesViewModel;
     private Context context;
@@ -48,9 +48,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         language = findViewById(R.id.language);
         vote_count = findViewById(R.id.vote_count);
         vote_average = findViewById(R.id.vote_average);
-        save = findViewById(R.id.save);
         favorite = findViewById(R.id.favorite);
         watched = findViewById(R.id.watched);
+        watchlist = findViewById(R.id.watchlist);
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);
@@ -62,15 +62,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         EditText keyword = dialog.findViewById(R.id.keyword);
 
         GetDataFromIntent();
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.saveMovie("saved", movieModel);
-                Toast.makeText(getApplicationContext(), movieModel.getTitle() + " Saved", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
 
         favorite.setOnClickListener(v -> {
             dialog.show();
@@ -108,6 +99,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
 
             });
+        });
+
+        watchlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.saveMovie("watchlist", movieModel);
+                watchlist.setImageResource(R.drawable.ic_watchlist_filled);
+                Toast.makeText(getApplicationContext(), "Added to watchlist: " + movieModel.getTitle(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

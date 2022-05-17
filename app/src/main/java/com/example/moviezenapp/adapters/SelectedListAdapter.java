@@ -31,8 +31,6 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
     private ArrayList<Movie> list;
     private Context context;
     private MoviesViewModel viewModel;
-    private Movie toFavorite;
-    private Movie watchedMovie;
     private Movie movie;
     private String id;
     private MovieList movieList;
@@ -151,8 +149,6 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             name = itemView.findViewById(R.id.nameSelectedListItem);
             releaseDate = itemView.findViewById(R.id.dateOfRelease);
             poster = itemView.findViewById(R.id.imageSelectedListItem);
-            imageFav = itemView.findViewById(R.id.addToFavorite);
-            imageWatched = itemView.findViewById(R.id.addToWatchlist);
             personalRating = itemView.findViewById(R.id.personalRatingSelectedList);
             personalRat = itemView.findViewById(R.id.ratingBar);
             editRating = itemView.findViewById(R.id.editRating);
@@ -161,17 +157,8 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
             keywordRating = itemView.findViewById(R.id.keywordRating);
             textViewKeyword = itemView.findViewById(R.id.textViewKeyword);
 
-            if (id.equals("favorite")) {
-                imageFav.setVisibility(View.INVISIBLE);
-                imageWatched.setVisibility(View.INVISIBLE);
-            }
 
-            if (id.equals("watched")) {
-                imageWatched.setVisibility(View.INVISIBLE);
-                imageFav.setVisibility(View.INVISIBLE);
-            }
-
-            if (id.equals("saved")) {
+            if (id.equals("watchlist")) {
                 editRating.setVisibility(View.GONE);
                 textViewKeyword.setText("");
             }
