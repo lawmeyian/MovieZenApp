@@ -24,8 +24,6 @@ import com.example.moviezenapp.ui.movies.MoviesViewModel;
 import com.google.gson.Gson;
 
 public class MovieDetailsActivity extends AppCompatActivity {
-
-    private Gson gson = new Gson();
     //Widgets
     private ImageView imageViewDetails;
     private TextView titleDetails, descDetails, release_date, language, vote_count, vote_average;
@@ -52,6 +50,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         vote_average = findViewById(R.id.vote_average);
         save = findViewById(R.id.save);
         favorite = findViewById(R.id.favorite);
+        watched = findViewById(R.id.watched);
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);
@@ -92,6 +91,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
             });
         });
 
+        watched.setOnClickListener(v -> {
+            dialog.show();
+            submit.setOnClickListener(v1 -> {
+                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Please rate this movie", Toast.LENGTH_SHORT).show();
+                } else {
+                    float value = ratingBar.getRating();
+                    String keywordText = keyword.getText().toString();
+                    movieModel.setKeyword(keywordText);
+                    movieModel.setPersonalRating(value);
+                    dialog.dismiss();
+                    viewModel.saveMovie("watched", movieModel);
+                    watched.setImageResource(R.drawable.ic_watched);
+                    Toast.makeText(getApplicationContext(), "Added to watched list: " + movieModel.getTitle(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        });
     }
 
 

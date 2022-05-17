@@ -92,30 +92,6 @@ public class SelectedListAdapter extends RecyclerView.Adapter<SelectedListAdapte
         Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500/" + list.get(position).getPoster_path())
                 .into(holder.poster);
 
-        holder.imageWatched.setOnClickListener(v -> {
-
-            watchedMovie = list.get(position);
-            dialog.show();
-
-            submit.setOnClickListener(v1 -> {
-                if (ratingBar.getRating() == 0.0 || keyword.getText().toString().equals("")) {
-                    Toast.makeText(context, "Please rate this movie", Toast.LENGTH_SHORT).show();
-                } else {
-                    float value = ratingBar.getRating();
-                    String keywordText = keyword.getText().toString();
-                    watchedMovie.setKeyword(keywordText);
-                    watchedMovie.setPersonalRating(value);
-                    dialog.dismiss();
-                    viewModel.saveMovie("watched", watchedMovie);
-                    list.remove(position);
-                    viewModel.remove(id, watchedMovie.getId());
-                    this.notifyItemRemoved(position);
-                }
-            });
-
-
-        });
-
         holder.deleteMovie.setOnClickListener(v -> {
 
             movie = list.get(position);
